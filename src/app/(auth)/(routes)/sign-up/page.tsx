@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Eye, EyeOff, ShoppingCart } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { createUser } from "../_actions/user-auth"
 
 const CustomerSchema = z.object({
     name: z.string().min(2, 'Missing name'),
@@ -25,6 +26,7 @@ const CustomerSchema = z.object({
 
 export default function SignUp() {
     const [isVisible, setIsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof CustomerSchema>>({
         mode: 'onChange',
         resolver: zodResolver(CustomerSchema),
@@ -35,10 +37,11 @@ export default function SignUp() {
         },
     });
 
-    const isLoading = form.formState.isSubmitting;
-
 
     const onSubmit = async (values: z.infer<typeof CustomerSchema>) => {
+        setIsLoading(true);
+        await createUser(values);
+        setIsLoading(false);
     }
 
     return (

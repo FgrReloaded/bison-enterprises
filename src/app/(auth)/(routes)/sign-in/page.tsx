@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Eye, EyeOff, ShoppingCart } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { signIn } from "next-auth/react"
 
 const CustomerSchema = z.object({
     email: z.string().email('Missing email'),
@@ -24,6 +25,7 @@ const CustomerSchema = z.object({
 
 export default function SignIn() {
     const [isVisible, setIsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof CustomerSchema>>({
         mode: 'onChange',
         resolver: zodResolver(CustomerSchema),
@@ -33,11 +35,15 @@ export default function SignIn() {
         },
     });
 
-    const isLoading = form.formState.isSubmitting;
-
-
     const onSubmit = async (values: z.infer<typeof CustomerSchema>) => {
-    }
+        setIsLoading(true);
+        await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/",
+        });
+        setIsLoading(false);
+    }   
 
     return (
         <Form {...form}>
@@ -83,7 +89,7 @@ export default function SignIn() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Login</Button>
+                <Button disabled={isLoading} type="submit">Login</Button>
 
                 <div className="flex flex-col items-center gap-2">
                     <p className="text-gray-500 text-sm">Don&apos;t have an account? <Link href={"/sign-up"} className="text-blue-500 underline">sign up </Link></p>
