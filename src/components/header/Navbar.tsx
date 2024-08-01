@@ -12,11 +12,13 @@ import {
     MenubarSeparator,
     MenubarTrigger,
 } from "@/components/ui/menubar"
-import { useSession } from 'next-auth/react'
-
+import { signOut, useSession } from 'next-auth/react'
+import { useDispatch } from 'react-redux';
+import { openSidebar } from '@/lib/slices/sidebarSlice';
 
 const Navbar = () => {
     const { data: session, status } = useSession();
+    const dispatch = useDispatch();
 
     return (
         <header className="py-4 px-4 flex items-center justify-between">
@@ -41,14 +43,14 @@ const Navbar = () => {
                         <span className='text-md tracking-wider'>+91 1234567890</span>
                     </div>
                 </div>
-                <Button className='rounded-full relative'>
+                <Button onClick={() => { dispatch(openSidebar()) }} className='rounded-full relative'>
                     <ShoppingCart size={20} />
                     <span className='absolute -top-2 -right-2 text-black rounded-full text-sm'>
                         <Badge className='hover:bg-destructive' variant={'destructive'}>0</Badge>
                     </span>
                 </Button>
                 {
-                    status === "loading" && <span className='animate-spin'> 
+                    status === "loading" && <span className='animate-spin'>
                         <LoaderCircle size={20} />
                     </span>
                 }
@@ -65,14 +67,22 @@ const Navbar = () => {
                             <MenubarContent className='mr-6'>
                                 <MenubarItem className='cursor-pointer'>Orders</MenubarItem>
                                 <MenubarSeparator />
-                                <MenubarItem className='cursor-pointer'>Edit Account</MenubarItem>
+                                <MenubarItem className='cursor-pointer'>
+                                    <Link className='w-full' href={"/account"}>
+                                        Profile
+                                    </Link>
+                                </MenubarItem>
                                 <MenubarSeparator />
-                                <MenubarItem className='flex justify-between cursor-pointer'>Logout <LogOut size={20} /></MenubarItem>
+                                <MenubarItem onClick={() => { signOut({ callbackUrl: "/" }) }} className='flex justify-between cursor-pointer'>Logout <LogOut size={20} /></MenubarItem>
                             </MenubarContent>
                         </MenubarMenu>
                     </Menubar>
                 }
-                {status === 'unauthenticated' && <Button className='rounded-full'>Login</Button>}
+                {status === 'unauthenticated' && <Link href={"/sign-in"} >
+                    <Button className='rounded-full'>
+                        Login
+                    </Button>
+                </Link>}
 
                 {/* <AlignRight className="md:hidden" /> */}
             </aside>
