@@ -65,13 +65,16 @@ const Navbar = () => {
                                 </Button>
                             </MenubarTrigger>
                             <MenubarContent className='mr-6'>
-                                <MenubarItem className='cursor-pointer'>Orders</MenubarItem>
-                                <MenubarSeparator />
-                                <MenubarItem className='cursor-pointer'>
-                                    <Link className='w-full' href={"/account"}>
+                                <Link className='w-full' href={"/orders"}>
+                                    <MenubarItem className='cursor-pointer'>
+                                        Orders
+                                    </MenubarItem>
+                                </Link>                                <MenubarSeparator />
+                                <Link className='w-full' href={"/account"}>
+                                    <MenubarItem className='cursor-pointer'>
                                         Profile
-                                    </Link>
-                                </MenubarItem>
+                                    </MenubarItem>
+                                </Link>
                                 <MenubarSeparator />
                                 <MenubarItem onClick={() => { signOut({ callbackUrl: "/" }) }} className='flex justify-between cursor-pointer'>Logout <LogOut size={20} /></MenubarItem>
                             </MenubarContent>

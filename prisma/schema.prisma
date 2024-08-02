@@ -15,6 +15,10 @@ model Customer {
   password  String
   phone     String?
   userType  UserTypes @default(CUSTOMER)
+  state     String?
+  city      String?
+  address   String?
+  pincode   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -1,13 +1,17 @@
-import { Trash2 } from 'lucide-react'
+import {  Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { ScrollArea } from "@/components/ui/scroll-area"
+import Link from 'next/link'
+import { closeSidebar } from '@/lib/slices/sidebarSlice';
+import { useDispatch } from 'react-redux'
 
 
 
 const Cart = () => {
+    const dispatch = useDispatch();
 
     return (
         <div className='w-full'>
@@ -93,9 +97,11 @@ const Cart = () => {
                     <p className='text-sm text-gray-500'>Shipping and taxes calculated at checkout.</p>
 
                 </div>
-                <Button>
+                <Link onClick={()=>{dispatch(closeSidebar())}} href="/checkout" className='w-full'>
+                <Button  className='w-full'>
                     Checkout
                 </Button>
+                </Link>
             </div>
         </div>
     )

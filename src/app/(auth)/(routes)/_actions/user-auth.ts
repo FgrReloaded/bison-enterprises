@@ -1,8 +1,7 @@
 "use server"
-
 import { db } from "@/lib/db"
 import bcrypt from "bcrypt"
-import {signIn} from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 
 interface User {
@@ -37,11 +36,6 @@ export async function createUser(User: User) {
             },
         });
 
-        await signIn("credentials", {
-            email,
-            password,
-            callbackUrl: "/",
-        });
 
     } catch (error) {
         console.error(error);

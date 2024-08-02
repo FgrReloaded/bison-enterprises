@@ -1,3 +1,5 @@
+"use server"
+
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { db } from "./db"
@@ -19,6 +21,10 @@ export async function getProfile() {
                 name: true,
                 userType: true,
                 phone: true,
+                state: true,
+                city: true,
+                address: true,
+                pincode: true,
             }
         })
 
@@ -36,16 +42,21 @@ export async function updateProfile(user: any) {
         return null
     }
 
-
     try {
         const updatedProfile = await db.customer.update({
             where: {
                 id: profile.id
             },
             data: {
-                email: user.email,
                 name: user.name,
                 phone: user.phone,
+            },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                userType: true,
+                phone: true,
             }
         })
 
@@ -55,3 +66,29 @@ export async function updateProfile(user: any) {
         console.error(error)
     }
 };
+
+export async function updateAddress(user: any) {
+    let profile = await getProfile();
+
+    if (!profile) {
+        return null
+    }
+
+    try {
+        await db.customer.update({
+            where: {
+                id: profile.id
+            },
+            data: {
+                state: user.state,
+                city: user.city,
+                address: user.address,
+                pincode: user.pincode,
+            }
+        })
+
+
+    } catch (error) {
+        console.error(error)
+    }
+}

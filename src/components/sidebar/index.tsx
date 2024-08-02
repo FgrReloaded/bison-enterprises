@@ -13,7 +13,7 @@ const SideBar = () => {
 
 
     return (
-        <div className={` h-screen translate-x-[450px] w-[400px] fixed right-0 top-0 z-10 py-4 bg-white shadow-md transition duration-500 ${isOpen && "translate-x-[0px]"}`}>
+        <div className={` h-screen w-[400px] fixed right-0 top-0 z-50 py-4 bg-white shadow-md transition duration-500 ${isOpen ? "translate-x-[0px]":"translate-x-[450px]"}`}>
             <span onClick={() => dispatch(closeSidebar())} className='bg-gray-300 rounded-full absolute -left-12 top-4 p-2 cursor-pointer'>
                 <X size={28} />
             </span>
