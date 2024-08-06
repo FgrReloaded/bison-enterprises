@@ -1,5 +1,6 @@
 "use client"
 
+import Footer from "@/components/Footer";
 import Nav from "@/components/header/Nav";
 import Navbar from "@/components/header/Navbar";
 import SideBar from "@/components/sidebar";
@@ -20,6 +21,7 @@ export default function PagesLayout({
                 <Nav />
                 <SideBar />
                 {children}
+                <Footer />
             </Provider>
         </SessionProvider>
     );

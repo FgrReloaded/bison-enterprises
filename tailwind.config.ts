@@ -75,6 +75,7 @@ const config = {
       borderWidth: {
         1: "1px",
       },
+      
     },
   },
   plugins: [require("tailwindcss-animate")],

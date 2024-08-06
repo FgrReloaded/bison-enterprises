@@ -83,7 +83,7 @@ const BillBoards = ({ allowedChildren, styleType }: Props) => {
 
 
     return (
-        <div className='grid gap-6 w-full h-[80vh] p-6' style={gridLayout["fourItemStyle"]["styleOne"].container}>
+        <div className='grid gap-6 w-full h-[80vh] p-6 bg-[#F7F7F8]' style={gridLayout["fourItemStyle"]["styleOne"].container}>
             {children}
         </div>
     )
