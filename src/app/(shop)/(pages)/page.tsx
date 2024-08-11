@@ -14,13 +14,21 @@ import TrendingProducts from "@/components/products/TrendingProducts";
 import { FAQ } from "@/components/FAQ";
 import Testimonial from "@/components/Testimonial";
 import Incentive from "@/components/Incentive";
+import { adminExists } from "@/lib/check-if-admin";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
     const dispatch = useDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         const fetchProfile = async () => {
+            const isAdminExists = await adminExists();
+            if (!isAdminExists) {
+                router.push("/setup");
+            }
             const profile = await getProfile();
+            console.log(profile)
             if (!profile) return;
             dispatch(setUserProfile(profile))
         }

@@ -46,7 +46,7 @@ export default function SignUp() {
         try {
             setIsLoading(true);
             await createUser(values);
-            await signIn("credentials", {
+            await signIn("customer", {
                 email: values.email,
                 password: values.password,
                 callbackUrl: "/",

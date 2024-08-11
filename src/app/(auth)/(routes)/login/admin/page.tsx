@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Eye, EyeOff, ShoppingCart } from "lucide-react"
-import Link from "next/link"
 import { useState } from "react"
 import { signIn } from "next-auth/react"
 
@@ -23,7 +22,7 @@ const CustomerSchema = z.object({
     password: z.string().min(8, 'Password must be at least 8 characters long'),
 })
 
-export default function SignIn() {
+export default function LoginAdmin() {
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof CustomerSchema>>({
@@ -37,13 +36,13 @@ export default function SignIn() {
 
     const onSubmit = async (values: z.infer<typeof CustomerSchema>) => {
         setIsLoading(true);
-        await signIn("customer", {
+        await signIn("admin", {
             email: values.email,
             password: values.password,
-            callbackUrl: "/",
+            callbackUrl: "/admin",
         });
         setIsLoading(false);
-    }   
+    }
 
     return (
         <Form {...form}>
@@ -54,7 +53,7 @@ export default function SignIn() {
                 <div className="flex flex-col items-center gap-2">
                     <ShoppingCart size={48} />
                     <h1 className="text-2xl font-semibold">Online Store</h1>
-                    <p className="text-gray-500">Login to your account</p>
+                    <p className="text-gray-500">Admin Login</p>
                 </div>
                 <FormField
                     disabled={isLoading}
@@ -81,7 +80,7 @@ export default function SignIn() {
                                 <div className="relative">
                                     <Input type={isVisible ? "text" : "password"} placeholder="Enter your password" {...field} />
                                     <span onClick={() => { setIsVisible(!isVisible) }} className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer">
-                                        {isVisible ? <Eye size={20} />: <EyeOff size={20} /> }
+                                        {isVisible ? <Eye size={20} /> : <EyeOff size={20} />}
                                     </span>
                                 </div>
                             </FormControl>
@@ -90,10 +89,6 @@ export default function SignIn() {
                     )}
                 />
                 <Button disabled={isLoading} type="submit">Login</Button>
-
-                <div className="flex flex-col items-center gap-2">
-                    <p className="text-gray-500 text-sm">Don&apos;t have an account? <Link href={"/sign-up"} className="text-blue-500 underline">sign up </Link></p>
-                </div>
             </form>
         </Form>
     )

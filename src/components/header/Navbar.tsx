@@ -43,19 +43,28 @@ const Navbar = () => {
                         <span className='text-md tracking-wider'>+91 1234567890</span>
                     </div>
                 </div>
-                <Button onClick={() => { dispatch(openSidebar()) }} className='rounded-full relative'>
-                    <ShoppingCart size={20} />
-                    <span className='absolute -top-2 -right-2 text-black rounded-full text-sm'>
-                        <Badge className='hover:bg-destructive' variant={'destructive'}>0</Badge>
-                    </span>
-                </Button>
+                {session && session.user.role !== "ADMIN" &&
+                    <Button onClick={() => { dispatch(openSidebar()) }} className='rounded-full relative'>
+                        <ShoppingCart size={20} />
+                        <span className='absolute -top-2 -right-2 text-black rounded-full text-sm'>
+                            <Badge className='hover:bg-destructive' variant={'destructive'}>0</Badge>
+                        </span>
+                    </Button>
+                }
                 {
                     status === "loading" && <span className='animate-spin'>
                         <LoaderCircle size={20} />
                     </span>
                 }
+                {session && session.user.role === "ADMIN" &&
+                    <Link  href={"/admin"}>
+                        <Button className='rounded-full'>
+                            Dashboard
+                        </Button>
+                    </Link>
+                }
                 {
-                    status === 'authenticated' && session.user.id &&
+                    status === 'authenticated' && session.user.id && session.user.role !== "ADMIN" &&
                     <Menubar className='border-none'>
                         <MenubarMenu>
                             <MenubarTrigger asChild>

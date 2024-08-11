@@ -3,12 +3,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
 import { db } from "@/lib/db";
-import { Customer } from "@prisma/client";
+import { Customer, Admin } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   providers: [
     CredentialsProvider({
+      id: "customer",
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
@@ -29,6 +30,30 @@ export const authOptions: NextAuthOptions = {
         return customer;
       },
     }),
+    CredentialsProvider({
+      id: "admin",
+      name: "Admin",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials): Promise<Admin | null> {
+        console.log("CREDENTIALS", credentials)
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Invalid credentials");
+        }
+        const admin = await db.admin.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+        if (!admin || !(await bcrypt.compare(credentials.password, admin.password)) || admin.userType !== "ADMIN") {
+          throw new Error("Invalid credentials");
+        }
+        console.log("ADMIN", admin);
+        return admin;
+      }
+    }),
   ],
   pages: {
     signIn: '/sign-in',
@@ -43,7 +68,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = user.userType; 
+        token.role = user.userType;
       }
       return token;
     },
