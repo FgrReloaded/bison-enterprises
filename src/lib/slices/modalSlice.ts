@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type ModalType = "productForm";
+export type ModalType = "productForm" | "quickView"; 
 
 
 const modalSlice = createSlice({

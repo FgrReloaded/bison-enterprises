@@ -9,7 +9,7 @@ import { Button } from '../ui/button';
 import { Upload } from 'lucide-react';
 
 
-const CreateProductModal = () => {
+const QuickView = () => {
     const dispatch = useDispatch();
     const { isOpen, type } = useSelector((state: any) => state.modal);
 
@@ -17,7 +17,7 @@ const CreateProductModal = () => {
         dispatch(closeModal());
     }
 
-    const isModalOpen = isOpen && type === 'productForm';
+    const isModalOpen = isOpen && type === 'quickView';
 
     const handleUpload = (result: CloudinaryUploadWidgetResults) => {
         console.log(result);
@@ -28,7 +28,7 @@ const CreateProductModal = () => {
             <Dialog open={isModalOpen} onOpenChange={handleOnClose}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Create a New Product</DialogTitle>
+                        <DialogTitle>Review Your Product</DialogTitle>
                         <DialogDescription>
                             Fill in the form below to create a new product
                         </DialogDescription>
@@ -42,4 +42,4 @@ const CreateProductModal = () => {
     )
 }
 
-export default CreateProductModal
+export default QuickView

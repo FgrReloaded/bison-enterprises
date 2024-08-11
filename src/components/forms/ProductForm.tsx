@@ -11,10 +11,13 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
-import { ArrowRight, Check, Upload } from 'lucide-react';
+import { Check, Upload, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { DialogFooter } from '../ui/dialog';
-import { CldUploadWidget } from 'next-cloudinary';
+import { CldImage, CldUploadWidget, CloudinaryUploadWidgetInfo } from 'next-cloudinary';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '@/lib/slices/modalSlice';
 
 
 const formSchema = z.object({
@@ -22,7 +25,7 @@ const formSchema = z.object({
     description: z.string().min(50, 'Product description is required'),
     price: z.number().min(1, 'Price is required'),
     inStock: z.number().min(1, 'Minimum stock is 1'),
-    images: z.array(z.string()).min(4, 'Add at least 4 images'),
+    images: z.array(z.string()).min(4, 'Add at least 4 images').max(6),
 })
 
 interface ProductFormProps {
@@ -31,7 +34,11 @@ interface ProductFormProps {
 
 
 const ProductForm = ({ handleModal }: ProductFormProps) => {
+    const dispatch = useDispatch();
+    const { isOpen, type } = useSelector((state: any) => state.modal);
     const router = useRouter();
+    const [uploadedImages, setUploadedImages] = useState<Array<string>>([]);
+    const [viewReview, setViewReview] = useState<boolean>(false);
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -40,7 +47,7 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
             description: '',
             price: 0,
             inStock: 0,
-            images: []
+            images: [] as Array<string>
         }
     })
     const isLoading = form.formState.isSubmitting;
@@ -49,16 +56,29 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
         try {
             form.reset();
             router.refresh();
-            handleModal();
+            // handleModal();
         } catch (error) {
             console.log(error)
         }
     }
 
-    const handleUpload = (result) => {
-       
+    const handleUpload = (result: any) => {
+        if (!result) return;
+        if (result?.event !== 'success') return;
+        const images = form.getValues('images') as Array<string>;
+        if (images.length >= 6) return;
+        images.push(result?.info?.public_id);
+        form.setValue('images', images);
     }
 
+    const handleReview = () => {
+
+    }
+    const showUploadedImages = () => {
+        const images = form.getValues('images') as Array<string>;
+        if (images.length === 0) return;
+        setUploadedImages(images);
+    }
 
     return (
         <Form {...form}>
@@ -81,29 +101,31 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                             )}
                         />
                     </div>
+                    <div className='flex gap-8 items-center'>
+                        <FormField control={form.control} name='price' render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>
+                                    Set Price (INR)
+                                </FormLabel>
+                                <FormControl>
+                                    <Input type='number' className='py-6' placeholder='Set Price' disabled={isLoading} {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )} />
+                        <FormField control={form.control} name='inStock' render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>
+                                    Items in stock
+                                </FormLabel>
+                                <FormControl>
+                                    <Input type='number' className='py-6' placeholder='Set available quantity' disabled={isLoading}  {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )} />
+                    </div>
 
-                    <FormField control={form.control} name='price' render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>
-                                Set Price (INR)
-                            </FormLabel>
-                            <FormControl>
-                                <Input type='number' className='py-6' placeholder='Set Price' disabled={isLoading} {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
-                    <FormField control={form.control} name='inStock' render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>
-                                Items in stock
-                            </FormLabel>
-                            <FormControl>
-                                <Input type='number' className='py-6' placeholder='Set Price' disabled={isLoading}  {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )} />
                     <FormField control={form.control} name='description' render={({ field }) => (
                         <FormItem>
                             <FormLabel>
@@ -116,22 +138,36 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                         </FormItem>
                     )} />
                 </div>
+                <div className='flex gap-4 items-center py-4'>
+                    {
+                        uploadedImages.map((image) => {
+                            return (
+                                <div className='w-12 h-12 rounded-full border-1 border-gray-500 relative'>
+                                    <CldImage key={image} src={image} width='50' height='50' style={{ borderRadius: "50%", objectFit: "contain", width: "100%", height: "100%" }} alt='img' />
+                                    <span>
+                                        <XCircle size={20} className='absolute -top-1 -right-1 cursor-pointer text-white rounded-full bg-red-500 ' />
+                                    </span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
                 <DialogFooter className='py-4'>
-                    <CldUploadWidget onUploadAdded={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
+                    <CldUploadWidget onClose={showUploadedImages} onSuccess={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
                         {({ open }) => {
                             return (
-                                <Button onClick={() => open()} className='mr-auto'>
-                                    Add Images <Upload className='ml-4' size={20} />
+                                <Button disabled={uploadedImages.length >= 6} type='button' onClick={() => { open() }} className='mr-auto'>
+                                    {uploadedImages.length >= 6 ? "Max 6 Images" : <>Add Images <Upload className='ml-4' size={20} /></>}
                                 </Button>
                             );
                         }}
                     </CldUploadWidget>
-                    <Button type='submit' className='ml-auto'>
+                    <Button onClick={()=>{setViewReview(true); dispatch(openModal("quickView"))}} type='submit' className='ml-auto'>
                         Review <Check className='ml-4' size={20} />
                     </Button>
                 </DialogFooter>
             </form>
-        </Form>
+        </Form >
 
     )
 }

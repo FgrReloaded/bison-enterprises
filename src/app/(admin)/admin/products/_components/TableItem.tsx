@@ -1,3 +1,4 @@
+import ActionTooltip from '@/components/modals/ActionTooltip'
 import { Eye, Pencil, Trash } from 'lucide-react'
 import React from 'react'
 
@@ -8,7 +9,7 @@ const TableItem = () => {
                 <img src="https://flowbite.com/docs/images/products/apple-watch.png" className="w-16 md:w-24 max-w-full max-h-full" alt="Apple Watch" />
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                Apple Watch
+                Apple Watch <span className='text-gray-500 underline text-[0.65rem] cursor-pointer'>Preview</span>
             </td>
             <td className="px-6 py-4">
                 <div className="flex items-center">
@@ -30,13 +31,19 @@ const TableItem = () => {
                 </div>
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-            ₹599
+                ₹599
             </td>
             <td className="px-6 py-4">
                 <div className='flex gap-4'>
-                    <span className='cursor-pointer hover:text-red-500 transition-all'><Eye size={24} /></span>
-                    <span className='cursor-pointer hover:text-red-500 transition-all'><Pencil size={24} /></span>
-                    <span className='cursor-pointer hover:text-red-500 transition-all'><Trash size={24} /></span>
+                    <ActionTooltip label="Hide" align='center' side='top' >
+                        <span className='cursor-pointer hover:text-red-500 transition-all'><Eye size={24} /></span>
+                    </ActionTooltip>
+                    <ActionTooltip label="Edit" align='center' side='top' >
+                        <span className='cursor-pointer hover:text-red-500 transition-all'><Pencil size={24} /></span>
+                    </ActionTooltip>
+                    <ActionTooltip label="Remove" align='center' side='top' >
+                        <span className='cursor-pointer hover:text-red-500 transition-all'><Trash size={24} /></span>
+                    </ActionTooltip>
                 </div>
             </td>
         </tr>

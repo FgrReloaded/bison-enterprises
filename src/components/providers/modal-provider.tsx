@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import CreateProductModal from "../modals/CreateProduct";
+import QuickView from "../modals/QuickView";
 
 
 const ModalProvider = () => {
@@ -15,6 +16,7 @@ const ModalProvider = () => {
 
     return (
         <div>
+            <QuickView />
            <CreateProductModal />
         </div>
     )

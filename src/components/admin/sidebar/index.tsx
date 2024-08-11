@@ -25,17 +25,6 @@ const NavigationSidebar =  () => {
             icon: <CalendarDays size={22} />
 
         },
-        {
-            name: "Calendar",
-            route: "/admin/calendar",
-            icon: <CalendarDays size={22} />
-
-        },
-        {
-            name: "Calendar",
-            route: "/admin/calendar",
-            icon: <CalendarDays size={22} />
-        }
     ]
 
 
