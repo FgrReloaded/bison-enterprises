@@ -46,7 +46,7 @@ const NavigationSidebar =  () => {
                 <ul className="mb-4 flex flex-col gap-1">
                     {menuItems.map((item) => {
                         return (
-                            <NavigationItem name={item.name} icon={item.icon} route={item.route} />
+                            <NavigationItem key={item.route} name={item.name} icon={item.icon} route={item.route} />
                         )
                     })}
                 </ul>

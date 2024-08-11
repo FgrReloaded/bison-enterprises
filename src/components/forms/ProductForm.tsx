@@ -11,24 +11,26 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check, Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { DialogFooter } from '../ui/dialog';
+import { CldUploadWidget } from 'next-cloudinary';
+
 
 const formSchema = z.object({
     title: z.string().min(1, 'Product name is required'),
     description: z.string().min(50, 'Product description is required'),
-    price: z.number({ message: "Enter a valid price" }).min(1, 'Price is required'),
-    inStock: z.number({ message: "Enter a valid quantity" }).min(1, 'Minimum stock is 1'),
+    price: z.number().min(1, 'Price is required'),
+    inStock: z.number().min(1, 'Minimum stock is 1'),
     images: z.array(z.string()).min(4, 'Add at least 4 images'),
 })
 
 interface ProductFormProps {
-    handleSubmit: () => void
+    handleModal: () => void
 }
 
 
-const ProductForm = ({ handleSubmit }: ProductFormProps) => {
+const ProductForm = ({ handleModal }: ProductFormProps) => {
     const router = useRouter();
 
     const form = useForm({
@@ -47,11 +49,17 @@ const ProductForm = ({ handleSubmit }: ProductFormProps) => {
         try {
             form.reset();
             router.refresh();
-            handleSubmit();
+            handleModal();
         } catch (error) {
             console.log(error)
         }
     }
+
+    const handleUpload = (result) => {
+       
+    }
+
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -80,7 +88,7 @@ const ProductForm = ({ handleSubmit }: ProductFormProps) => {
                                 Set Price (INR)
                             </FormLabel>
                             <FormControl>
-                                <Input className='py-6' placeholder='Set Price' disabled={isLoading} {...field} />
+                                <Input type='number' className='py-6' placeholder='Set Price' disabled={isLoading} {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -91,7 +99,7 @@ const ProductForm = ({ handleSubmit }: ProductFormProps) => {
                                 Items in stock
                             </FormLabel>
                             <FormControl>
-                                <Input className='py-6' placeholder='Set Price' disabled={isLoading} {...field} />
+                                <Input type='number' className='py-6' placeholder='Set Price' disabled={isLoading}  {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -109,8 +117,17 @@ const ProductForm = ({ handleSubmit }: ProductFormProps) => {
                     )} />
                 </div>
                 <DialogFooter className='py-4'>
-                    <Button className='ml-auto' onClick={handleSubmit}>
-                        Add Images <ArrowRight className='ml-4' size={20} />
+                    <CldUploadWidget onUploadAdded={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
+                        {({ open }) => {
+                            return (
+                                <Button onClick={() => open()} className='mr-auto'>
+                                    Add Images <Upload className='ml-4' size={20} />
+                                </Button>
+                            );
+                        }}
+                    </CldUploadWidget>
+                    <Button type='submit' className='ml-auto'>
+                        Review <Check className='ml-4' size={20} />
                     </Button>
                 </DialogFooter>
             </form>

@@ -25,7 +25,7 @@ const CreateProductModal = () => {
                         Fill in the form below to create a new product
                     </DialogDescription>
                 </DialogHeader>
-                <ProductForm handleSubmit={handleOnClose} />
+                <ProductForm handleModal={handleOnClose} />
             </DialogContent>
         </Dialog >
     )
