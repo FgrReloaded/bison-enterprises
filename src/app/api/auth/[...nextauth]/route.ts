@@ -38,7 +38,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials): Promise<Admin | null> {
-        console.log("CREDENTIALS", credentials)
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
@@ -50,7 +49,6 @@ export const authOptions: NextAuthOptions = {
         if (!admin || !(await bcrypt.compare(credentials.password, admin.password)) || admin.userType !== "ADMIN") {
           throw new Error("Invalid credentials");
         }
-        console.log("ADMIN", admin);
         return admin;
       }
     }),

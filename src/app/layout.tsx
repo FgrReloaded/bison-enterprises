@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
+import QueryProvider from "@/components/providers/query-provider";
+import { Suspense } from "react";
+import LoadingPage from "./loading";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,11 +20,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <Suspense fallback={<LoadingPage/>}>
+        <QueryProvider>
           {children}
           <Toaster />
+          
+        </QueryProvider>
+        </Suspense>
       </body>
     </html>
   );

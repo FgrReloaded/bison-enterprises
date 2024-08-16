@@ -1,26 +1,30 @@
-"use client"
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Plus } from "lucide-react";
 import ProductsTable from "./_components/Products";
-import { useDispatch } from "react-redux";
-import { openModal } from "@/lib/slices/modalSlice";
+import { AddProduct } from "./_components/AddProduct";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { getProducts } from "@/actions/product";
 
-export default function AdminProductPage() {
-    const dispatch = useDispatch();
-    
+export default async function AdminProductPage() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: ['products'],
+        queryFn: getProducts,
+    });
+
+
     return (
         <div className="flex flex-col">
             <div className="ml-auto">
-                <Button onClick={()=>{dispatch(openModal("productForm"))}}>
-                    <Plus size={24} /> Add Product
-                </Button>
+                <AddProduct />
             </div>
             <Separator className="my-4" />
             <div className="flex flex-col px-2">
                 <h1 className="text-4xl font-bold uppercase my-6">All Products</h1>
                 <div>
-                    <ProductsTable />
+                    <HydrationBoundary state={dehydrate(queryClient)}>
+                        <ProductsTable />
+                    </HydrationBoundary>
                 </div>
             </div>
 

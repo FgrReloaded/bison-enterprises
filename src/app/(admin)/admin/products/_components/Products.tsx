@@ -1,8 +1,19 @@
-import React from 'react'
-import TableItem from './TableItem'
-import { Eye, Pencil, Trash } from 'lucide-react'
+"use client"
+import TableItem from './ProductItem'
+import { ProductSkeleton } from './ProductSkeleton';
+import { Product } from '@prisma/client';
+import {  useQuery } from '@tanstack/react-query';
+import { getProducts } from '@/actions/product';
 
 const ProductsTable = () => {
+    const {data: products, isLoading} = useQuery({
+        queryKey: ['products'],
+        queryFn: getProducts,
+    })
+
+    if(isLoading) {
+        return <ProductSkeleton />
+    }
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -27,8 +38,8 @@ const ProductsTable = () => {
                 </thead>
                 <tbody>
                     {
-                        Array.from({ length: 5 }).map((_, index) => (
-                            <TableItem key={index} />
+                        products?.map((product: Product, index: number) => (
+                            <TableItem key={index} product={product} />
                         ))
                     }
                 </tbody>

@@ -1,39 +1,31 @@
 "use client"
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '@/lib/slices/modalSlice';
-import ProductForm from '../forms/ProductForm';
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
-import { Button } from '../ui/button';
-import { Upload } from 'lucide-react';
+import QuickView from '../products/QuickView';
 
 
-const QuickView = () => {
+const ProductReview = () => {
     const dispatch = useDispatch();
     const { isOpen, type } = useSelector((state: any) => state.modal);
-
     const handleOnClose = () => {
         dispatch(closeModal());
     }
 
     const isModalOpen = isOpen && type === 'quickView';
-
-    const handleUpload = (result: CloudinaryUploadWidgetResults) => {
-        console.log(result);
-    }
     return (
         <div>
 
             <Dialog open={isModalOpen} onOpenChange={handleOnClose}>
-                <DialogContent>
+                <DialogContent className='md:max-w-[60vw]'>
                     <DialogHeader>
                         <DialogTitle>Review Your Product</DialogTitle>
                         <DialogDescription>
-                            Fill in the form below to create a new product
+                            To change click edit button
                         </DialogDescription>
                     </DialogHeader>
-                    <ProductForm handleModal={handleOnClose} />
+                    <QuickView />
                 </DialogContent>
 
             </Dialog >
@@ -42,4 +34,4 @@ const QuickView = () => {
     )
 }
 
-export default QuickView
+export default ProductReview

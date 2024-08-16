@@ -15,7 +15,7 @@ import { Check, Upload, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { DialogFooter } from '../ui/dialog';
 import { CldImage, CldUploadWidget, CloudinaryUploadWidgetInfo } from 'next-cloudinary';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/lib/slices/modalSlice';
 
@@ -35,12 +35,12 @@ interface ProductFormProps {
 
 const ProductForm = ({ handleModal }: ProductFormProps) => {
     const dispatch = useDispatch();
-    const { isOpen, type } = useSelector((state: any) => state.modal);
+    const { data } = useSelector((state: any) => state.modal);
     const router = useRouter();
     const [uploadedImages, setUploadedImages] = useState<Array<string>>([]);
-    const [viewReview, setViewReview] = useState<boolean>(false);
 
     const form = useForm({
+        mode: 'onChange',
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: '',
@@ -72,13 +72,33 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
     }
 
     const handleReview = () => {
-
+        dispatch(openModal({
+            type: "quickView",
+            data: {
+                title: form.getValues('title'),
+                description: form.getValues('description'),
+                price: form.getValues('price'),
+                inStock: form.getValues('inStock'),
+                images: form.getValues('images')
+            }
+        }));
     }
+
     const showUploadedImages = () => {
         const images = form.getValues('images') as Array<string>;
         if (images.length === 0) return;
         setUploadedImages(images);
     }
+
+    useEffect(()  =>{
+        if(!data) return
+        setUploadedImages(data.images);
+        form.setValue('title', data?.title);
+        form.setValue('description', data?.description);
+        form.setValue('price', data?.price);
+        form.setValue('inStock', data?.inStock);
+        form.setValue('images', data?.images);
+    }, [data]);
 
     return (
         <Form {...form}>
@@ -132,7 +152,7 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                                 Product Description
                             </FormLabel>
                             <FormControl>
-                                <Textarea className='py-2' placeholder='Add Product Description' disabled={isLoading} {...field} />
+                                <Textarea rows={3}  className='py-2 resize-none' placeholder='Add Product Description' disabled={isLoading} {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -140,7 +160,7 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                 </div>
                 <div className='flex gap-4 items-center py-4'>
                     {
-                        uploadedImages.map((image) => {
+                        uploadedImages?.map((image) => {
                             return (
                                 <div className='w-12 h-12 rounded-full border-1 border-gray-500 relative'>
                                     <CldImage key={image} src={image} width='50' height='50' style={{ borderRadius: "50%", objectFit: "contain", width: "100%", height: "100%" }} alt='img' />
@@ -156,13 +176,15 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                     <CldUploadWidget onClose={showUploadedImages} onSuccess={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
                         {({ open }) => {
                             return (
-                                <Button disabled={uploadedImages.length >= 6} type='button' onClick={() => { open() }} className='mr-auto'>
-                                    {uploadedImages.length >= 6 ? "Max 6 Images" : <>Add Images <Upload className='ml-4' size={20} /></>}
+                                <Button disabled={uploadedImages?.length >= 6} type='button' onClick={() => { open() }} className='mr-auto'>
+                                    {uploadedImages?.length >= 6 ? "Max 6 Images" : <>Add Images <Upload className='ml-4' size={20} /></>}
                                 </Button>
                             );
                         }}
                     </CldUploadWidget>
-                    <Button onClick={()=>{setViewReview(true); dispatch(openModal("quickView"))}} type='submit' className='ml-auto'>
+                    <Button onClick={handleReview} type='button' 
+                    // disabled={!form.formState.isValid}
+                     className='ml-auto'>
                         Review <Check className='ml-4' size={20} />
                     </Button>
                 </DialogFooter>
