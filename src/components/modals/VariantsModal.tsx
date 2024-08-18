@@ -1,30 +1,32 @@
 "use client"
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '@/lib/slices/modalSlice';
-import QuickView from '../products/QuickView';
+import VariantForm from '../forms/VariantForm';
 
-
-const ProductReview = () => {
+const CreateVariantModal = () => {
     const dispatch = useDispatch();
     const { isOpen, type } = useSelector((state: any) => state.modal);
+
     const handleOnClose = () => {
         dispatch(closeModal());
     }
-    const isModalOpen = isOpen && type === 'quickView';
+
+    const isModalOpen = isOpen && type === 'variantModal'
+
     return (
         <div>
 
             <Dialog open={isModalOpen} onOpenChange={handleOnClose}>
-                <DialogContent className='md:max-w-[60vw]'>
+                <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Review Your Product</DialogTitle>
+                        <DialogTitle>Create a New Variant</DialogTitle>
                         <DialogDescription>
-                            To change click edit button
+                            Fill in the form below to create a new variant
                         </DialogDescription>
                     </DialogHeader>
-                    <QuickView />
+                    <VariantForm />
                 </DialogContent>
 
             </Dialog >
@@ -33,4 +35,4 @@ const ProductReview = () => {
     )
 }
 
-export default ProductReview
+export default CreateVariantModal

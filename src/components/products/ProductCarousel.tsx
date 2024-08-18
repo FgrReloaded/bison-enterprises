@@ -38,7 +38,7 @@ const ProductCarousel = () => {
             loop: true,
         }} className="w-full" >
             <CarouselContent>
-                {products?.map((product: Product) => (
+                {products?.map((product: any) => (
                     <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-[24%]">
                         <ProductCard product={product} />
                     </CarouselItem>

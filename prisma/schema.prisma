@@ -7,11 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Customer {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
   phone     String?
   userType  UserTypes @default(CUSTOMER)
@@ -19,23 +18,23 @@ model Customer {
   city      String?
   address   String?
   pincode   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Admin {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
   phone     String?
   userType  UserTypes @default(ADMIN)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Product {
-  id          String   @id @default(cuid())
+  id          String           @id @default(cuid())
   name        String
   description String
   price       Float
@@ -44,10 +43,42 @@ model Product {
   stock       Int
   isFeatured  Boolean?
   isHide      Boolean?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  variants    ProductVariant[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 }
 
+model VariantType {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  variants  Variant[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Variant {
+  id              String           @id @default(cuid())
+  name            String
+  typeId          String
+  type            VariantType      @relation(fields: [typeId], references: [id])
+  productVariants ProductVariant[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  productId String
+  variantId String
+  product   Product  @relation(fields: [productId], references: [id])
+  variant   Variant  @relation(fields: [variantId], references: [id])
+  price     Float?
+  stock     Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, variantId])
+}
 
 model VerificationToken {
   identifier String
@@ -56,8 +87,6 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
-
-
 
 enum UserTypes {
   ADMIN

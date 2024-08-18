@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 
-const CheckoutDetailsSchema = z.object({
+const AdminFormSchema = z.object({
     name: z.string().min(2, 'Missing name'),
     email: z.string().email('Missing email'),
     password: z.string().min(8, 'Password must be at least 8 characters'),
@@ -33,9 +33,9 @@ const AdminForm = () => {
     const [isVisible, setIsVisible] = useState(false);
     const router = useRouter();
 
-    const form = useForm<z.infer<typeof CheckoutDetailsSchema>>({
+    const form = useForm<z.infer<typeof AdminFormSchema>>({
         mode: 'onChange',
-        resolver: zodResolver(CheckoutDetailsSchema),
+        resolver: zodResolver(AdminFormSchema),
         defaultValues: {
             name: '',
             email: '',
@@ -43,7 +43,7 @@ const AdminForm = () => {
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof CheckoutDetailsSchema>) => {
+    const onSubmit = async (values: z.infer<typeof AdminFormSchema>) => {
         try {
             setIsLoading(true);
             await createSuperUser(values);

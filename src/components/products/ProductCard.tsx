@@ -1,20 +1,26 @@
-import { EyeIcon, ShoppingBasket, ShoppingCart, ShoppingCartIcon, View } from "lucide-react"
+"use client"
+
+import { ShoppingCart, View } from "lucide-react"
 import Image from "next/image"
 import ActionTooltip from "../modals/ActionTooltip"
 import Link from "next/link"
 import { Product } from "@prisma/client"
+import { useDispatch } from "react-redux"
+import { openModal } from "@/lib/slices/modalSlice"
 
-export const ProductCard = ({product}: {product: Product}) => {
+export const ProductCard = ({ product }: { product: Product }) => {
+    const dispatch = useDispatch()
+    const openQuickView = () => {
+        dispatch(openModal({ type: "quickView", data: { ...product, title: "", inStock: 5 } }))
+    }
     return (
         <div className="relative bg-cover group rounded-3xl bg-center overflow-hidden mx-auto sm:mr-0 xl:mx-auto cursor-pointer">
             <span className="p-3 z-10 rounded-full bg-gray-800 absolute right-3 top-3">
                 <ShoppingCart className="text-white" size={20} />
             </span>
-            <ActionTooltip label="Quick View" side="top" align="center">
-                <span className="p-3 z-10 rounded-full bg-gray-200 absolute left-3 top-3 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <View size={20} />
-                </span>
-            </ActionTooltip>
+            <span onClick={openQuickView} className="p-3 z-10 rounded-full bg-gray-200 absolute left-3 top-3 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <View size={20} />
+            </span>
             <div className="w-[280px] h-[290px] relative">
                 <Image layout="fill" objectFit="cover" className="rounded-2xl" src="/assets/dev/slide01.jpeg" alt="Jacket image" />
             </div>
