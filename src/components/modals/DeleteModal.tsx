@@ -15,7 +15,7 @@ import { Button } from '../ui/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '@/lib/slices/modalSlice';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteProduct } from '@/actions/product';
+import { deleteProduct } from '@/actions/admin/product';
 import { Product } from '@prisma/client';
 import { toast } from 'sonner';
 
@@ -47,7 +47,7 @@ const DeleteProductModal = () => {
         },
         onError: (error) => {
             console.error(error);
-            toast.error('Failed to create product');
+            toast.error('Failed to delete product product');
         }
     });
 

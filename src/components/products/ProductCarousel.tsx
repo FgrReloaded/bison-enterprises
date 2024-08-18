@@ -1,48 +1,52 @@
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel"
-import { ProductCard } from "./ProductCard"
+"use client"
 
+import React from 'react'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel'
+import { ProductCard } from './ProductCard'
+import { useQuery } from '@tanstack/react-query'
+import { getProducts } from '@/actions/products'
+import { Product } from '@prisma/client'
+import { SquareDashedKanban } from 'lucide-react'
 
 const ProductCarousel = () => {
+    const { data: products, isLoading, error } = useQuery({
+        queryKey: ['shop-products'],
+        queryFn: async () => getProducts(),
+        initialData: [],
+    });
+    if (isLoading) {
+        return (
+            <div>
+                ...Loading
+            </div>
+        )
+    }
+
+    if (products.length === 0) {
+        return (
+            <div className='w-full flex items-center justify-center flex-col gap-6 mt-6'>
+                <SquareDashedKanban size={48} className='text-gray-500 dark:text-gray-400' />
+                <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>No products found</span>
+            </div>
+        )
+    }
+
+
     return (
         <Carousel opts={{
             align: "start",
             loop: true,
         }} className="w-full" >
             <CarouselContent>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]"> 
-                {/* // For responsive design change basis */}
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
-                <CarouselItem className="md:basis-1/2 lg:basis-[24%]">
-                    <ProductCard />
-                </CarouselItem>
+                {products?.map((product: Product) => (
+                    <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-[24%]">
+                        <ProductCard product={product} />
+                    </CarouselItem>
+                ))}
             </CarouselContent>
             <CarouselPrevious />
-            <CarouselNext />
+            <CarouselNext
+            />
         </Carousel>
     )
 }

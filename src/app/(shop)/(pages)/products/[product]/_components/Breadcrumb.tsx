@@ -8,9 +8,8 @@ import {
 } from "@/components/ui/breadcrumb"
 import Link from "next/link"
 
-import React from 'react'
 
-const BreadcrumbProduct = () => {
+const BreadcrumbProduct = ({name}:{name?: string}) => {
     return (
         <Breadcrumb>
             <BreadcrumbList>
@@ -23,7 +22,7 @@ const BreadcrumbProduct = () => {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator >/</BreadcrumbSeparator>
                 <BreadcrumbItem>
-                    <BreadcrumbPage >Afro-Brazillian Coffee</BreadcrumbPage>
+                    <BreadcrumbPage >{name}</BreadcrumbPage>
                 </BreadcrumbItem>
             </BreadcrumbList>
         </Breadcrumb>

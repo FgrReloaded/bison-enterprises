@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from './ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { updateProduct } from '@/actions/product'
+import { updateProduct } from '@/actions/admin/product'
 import { closeModal } from '@/lib/slices/modalSlice'
 import { useDispatch } from 'react-redux'
 

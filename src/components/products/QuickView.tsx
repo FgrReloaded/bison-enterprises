@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, openModal } from '@/lib/slices/modalSlice';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProduct } from '@/actions/product';
+import { createProduct } from '@/actions/admin/product';
 
 const QuickView = () => {
     const dispatch = useDispatch();

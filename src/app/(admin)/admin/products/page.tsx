@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import ProductsTable from "./_components/Products";
 import { AddProduct } from "./_components/AddProduct";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getProducts } from "@/actions/product";
+import { getProducts } from "@/actions/admin/product";
 
 export default async function AdminProductPage() {
     const queryClient = new QueryClient();

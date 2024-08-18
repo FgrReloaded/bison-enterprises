@@ -42,6 +42,8 @@ model Product {
   category    String?
   images      String[]
   stock       Int
+  isFeatured  Boolean?
+  isHide      Boolean?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -1,8 +1,6 @@
 "use client"
-
 import BillBoards from "@/components/billboards";
 import FeatureCard from "@/components/ServiceCard";
-import ProductCarousel from "@/components/products/ProductCarousel";
 import { getProfile } from "@/lib/manage-account";
 import { setUserProfile } from "@/lib/slices/userSlice";
 import { useEffect } from "react";
@@ -16,6 +14,7 @@ import Testimonial from "@/components/Testimonial";
 import Incentive from "@/components/Incentive";
 import { adminExists } from "@/lib/check-if-admin";
 import { useRouter } from "next/navigation";
+import ProductCarousel from "@/components/products/ProductCarousel";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -35,6 +34,8 @@ export default function Home() {
 
         fetchProfile()
     }, [dispatch])
+
+
 
     return (
         <>

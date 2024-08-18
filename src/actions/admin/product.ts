@@ -105,7 +105,7 @@ export const updateProduct = async (product: Product): Promise<Product> => {
     }
 }
 
-const updateStock = async (id: string, stock: number): Promise<Product> => {
+export const updateStock = async ({ id, stock }: { id: string, stock: number }): Promise<Product> => {
     try {
         if (!id || !stock) throw new Error('No data to update stock');
         const session = await getServerSession(authOptions);
@@ -120,12 +120,37 @@ const updateStock = async (id: string, stock: number): Promise<Product> => {
             },
             data: {
                 stock
-            }
+            },
         });
 
         return updatedProduct;
     } catch (error) {
         console.log(error);
         throw new Error('Failed to update stock');
+    }
+}
+
+export const productVisibility = async ({ id, isHide }: { id: string, isHide: boolean }): Promise<Product> => {
+    try {
+        if (!id || isHide === undefined) throw new Error('No product id provided');
+        const session = await getServerSession(authOptions);
+
+        if (!session || session.user.role !== 'ADMIN') {
+            throw new Error('No product id provided');
+        }
+
+        const updatedProduct = await db.product.update({
+            where: {
+                id
+            },
+            data: {
+                isHide: isHide
+            }
+        });
+
+        return updatedProduct;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to hide product');
     }
 }
