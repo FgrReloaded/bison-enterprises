@@ -34,7 +34,7 @@ const QuickView = () => {
     });
 
     const handleProductCreation = () => {
-        mutate({name: data.title, stock: data.inStock, ...data});
+        mutate({ name: data.title, stock: data.inStock, ...data });
     }
 
     if (!data) return null;
@@ -49,9 +49,9 @@ const QuickView = () => {
                     <div className='w-[30vw] h-[30vw] relative'>
                         <CldImage src={images[0]} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={title} />
                     </div>
-                    <div className='grid grid-cols-4 gap-8'>
+                    <div className='grid grid-cols-5 gap-4'>
                         {images.length > 1 &&
-                            images.slice(1, 5).map((image: string, index: number) => (
+                            images.slice(1, 6).map((image: string, index: number) => (
                                 <div key={index} className='border-1 border-gray-500 w-20 h-20 relative overflow-hidden'>
                                     <CldImage key={image} src={image} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={title} />
                                 </div>

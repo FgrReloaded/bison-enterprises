@@ -18,6 +18,7 @@ import { CldImage, CldUploadWidget, CloudinaryUploadWidgetInfo } from 'next-clou
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/lib/slices/modalSlice';
+import UpdateProduct from '../UpdateProduct';
 
 
 const formSchema = z.object({
@@ -28,15 +29,9 @@ const formSchema = z.object({
     images: z.array(z.string()).min(4, 'Add at least 4 images').max(6),
 })
 
-interface ProductFormProps {
-    handleModal: () => void
-}
-
-
-const ProductForm = ({ handleModal }: ProductFormProps) => {
+const ProductForm = () => {
     const dispatch = useDispatch();
-    const { data } = useSelector((state: any) => state.modal);
-    const router = useRouter();
+    const { data, type } = useSelector((state: any) => state.modal);
     const [uploadedImages, setUploadedImages] = useState<Array<string>>([]);
 
     const form = useForm({
@@ -51,16 +46,6 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
         }
     })
     const isLoading = form.formState.isSubmitting;
-
-    const onSubmit = async (data: z.infer<typeof formSchema>) => {
-        try {
-            form.reset();
-            router.refresh();
-            // handleModal();
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     const handleUpload = (result: any) => {
         if (!result) return;
@@ -90,8 +75,8 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
         setUploadedImages(images);
     }
 
-    useEffect(()  =>{
-        if(!data) return
+    useEffect(() => {
+        if (!data) return
         setUploadedImages(data.images);
         form.setValue('title', data?.title);
         form.setValue('description', data?.description);
@@ -102,7 +87,7 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form>
                 <div className="space-y-8">
                     <div className='space-y-8'>
                         <FormField
@@ -152,7 +137,7 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                                 Product Description
                             </FormLabel>
                             <FormControl>
-                                <Textarea rows={3}  className='py-2 resize-none' placeholder='Add Product Description' disabled={isLoading} {...field} />
+                                <Textarea rows={3} className='py-2 resize-none' placeholder='Add Product Description' disabled={isLoading} {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -162,7 +147,7 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                     {
                         uploadedImages?.map((image) => {
                             return (
-                                <div className='w-12 h-12 rounded-full border-1 border-gray-500 relative'>
+                                <div key={image} className='w-12 h-12 rounded-full border-1 border-gray-500 relative'>
                                     <CldImage key={image} src={image} width='50' height='50' style={{ borderRadius: "50%", objectFit: "contain", width: "100%", height: "100%" }} alt='img' />
                                     <span>
                                         <XCircle size={20} className='absolute -top-1 -right-1 cursor-pointer text-white rounded-full bg-red-500 ' />
@@ -182,11 +167,15 @@ const ProductForm = ({ handleModal }: ProductFormProps) => {
                             );
                         }}
                     </CldUploadWidget>
-                    <Button onClick={handleReview} type='button' 
-                    // disabled={!form.formState.isValid}
-                     className='ml-auto'>
-                        Review <Check className='ml-4' size={20} />
-                    </Button>
+                    {
+                        type === 'updateProduct' ?
+                            <UpdateProduct form={form} productId={data?.id} isValid={!form.formState.isValid} /> :
+                            <Button onClick={handleReview} type='button'
+                                // disabled={!form.formState.isValid}
+                                className='ml-auto'>
+                                Review <Check className='ml-4' size={20} />
+                            </Button>
+                    }
                 </DialogFooter>
             </form>
         </Form >

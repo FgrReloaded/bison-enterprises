@@ -4,10 +4,6 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '@/lib/slices/modalSlice';
 import ProductForm from '../forms/ProductForm';
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
-import { Button } from '../ui/button';
-import { Upload } from 'lucide-react';
-
 
 const CreateProductModal = () => {
     const dispatch = useDispatch();
@@ -17,11 +13,8 @@ const CreateProductModal = () => {
         dispatch(closeModal());
     }
 
-    const isModalOpen = isOpen && type === 'productForm';
+    const isModalOpen = isOpen && (type === 'productForm' || type === 'updateProduct');
 
-    const handleUpload = (result: CloudinaryUploadWidgetResults) => {
-        console.log(result);
-    }
     return (
         <div>
 
@@ -33,7 +26,7 @@ const CreateProductModal = () => {
                             Fill in the form below to create a new product
                         </DialogDescription>
                     </DialogHeader>
-                    <ProductForm handleModal={handleOnClose} />
+                    <ProductForm />
                 </DialogContent>
 
             </Dialog >

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import CreateProductModal from "../modals/CreateProduct";
 import ProductReview from "../modals/ProductReview";
+import DeleteProductModal from "../modals/DeleteModal";
 
 
 const ModalProvider = () => {
@@ -16,6 +17,7 @@ const ModalProvider = () => {
 
     return (
         <div>
+            <DeleteProductModal />
             <ProductReview />
            <CreateProductModal />
         </div>

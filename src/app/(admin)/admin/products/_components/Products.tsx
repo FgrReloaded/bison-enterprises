@@ -2,18 +2,29 @@
 import TableItem from './ProductItem'
 import { ProductSkeleton } from './ProductSkeleton';
 import { Product } from '@prisma/client';
-import {  useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getProducts } from '@/actions/product';
+import { SquareDashedKanban } from 'lucide-react';
 
 const ProductsTable = () => {
-    const {data: products, isLoading} = useQuery({
+    const { data: products, isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
     })
 
-    if(isLoading) {
+    if (isLoading) {
         return <ProductSkeleton />
     }
+
+    if (products?.length === 0) {
+        return (
+            <div className='w-full flex items-center justify-center flex-col gap-6 mt-6'>
+                <SquareDashedKanban size={48} className='text-gray-500 dark:text-gray-400' />
+                <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>No products found</span>
+            </div>
+        )
+    }
+
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
