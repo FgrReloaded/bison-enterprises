@@ -19,6 +19,7 @@ import { DialogFooter } from '../ui/dialog';
 import { toast } from 'sonner';
 import { createVariant } from '@/actions/admin/variant';
 import { closeModal } from '@/lib/slices/modalSlice';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 
 const variantSchema = z.object({
@@ -30,6 +31,7 @@ const VariantForm = () => {
   const dispatch = useDispatch();
   const [variants, setVariants] = useState<Array<any>>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const form = useForm({
     mode: 'onChange',
@@ -39,16 +41,31 @@ const VariantForm = () => {
       variants: [] as Array<string>
     }
   })
+  const { mutate } = useMutation({
+    mutationFn: createVariant,
+    onSuccess: (newVariant: any) => {
+      queryClient.setQueryData(['variants'], (oldData: any) => {
+        return oldData ? [...oldData, newVariant] : [newVariant];
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ['variants']
+      });
+      dispatch(closeModal());
+      toast.success('Variant created successfully');
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Failed to create variant');
+    }
+  });
 
   const onSubmit = async (values: z.infer<typeof variantSchema>) => {
     try {
       setIsLoading(true);
-      createVariant(values);
-      dispatch(closeModal());
-      toast.success('Details updated')
+      mutate(values);
     } catch (error) {
       console.error(error);
-      toast.error('Failed to update account');
     } finally {
       setIsLoading(false);
     }

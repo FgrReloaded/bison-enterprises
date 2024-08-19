@@ -23,7 +23,8 @@ const ProductsTable = () => {
                 <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>No products found</span>
             </div>
         )
-    }
+    }   
+    console.log(products)
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

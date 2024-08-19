@@ -12,13 +12,16 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { Check, Upload, XCircle } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { DialogFooter } from '../ui/dialog';
-import { CldImage, CldUploadWidget, CloudinaryUploadWidgetInfo } from 'next-cloudinary';
+import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/lib/slices/modalSlice';
 import UpdateProduct from '../UpdateProduct';
+import { getVariants } from '@/actions/admin/variant';
+import { VariantTypeWithVariant } from '@/lib/types';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, } from '../ui/select';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 
 
 const formSchema = z.object({
@@ -27,12 +30,21 @@ const formSchema = z.object({
     price: z.number().min(1, 'Price is required'),
     inStock: z.number().min(1, 'Minimum stock is 1'),
     images: z.array(z.string()).min(4, 'Add at least 4 images').max(6),
+    isFeatured: z.boolean().optional(),
+    variants: z.array(z.object({
+        variantId: z.string(),
+        productId: z.string().optional(),
+        price: z.number().min(1, 'Price is required'),
+        stock: z.number().min(1, 'Minimum stock is 1')
+    })).optional()
 })
 
 const ProductForm = () => {
     const dispatch = useDispatch();
     const { data, type } = useSelector((state: any) => state.modal);
     const [uploadedImages, setUploadedImages] = useState<Array<string>>([]);
+    const [variants, setVariants] = useState<VariantTypeWithVariant[] | null>(null)
+    const [selectedVariants, setSelectedVariants] = useState({} as any);
 
     const form = useForm({
         mode: 'onChange',
@@ -42,7 +54,9 @@ const ProductForm = () => {
             description: '',
             price: 0,
             inStock: 0,
-            images: [] as Array<string>
+            images: [] as Array<string>,
+            isFeatured: false,
+            variants: [] as Array<{ variantId: string, price: number, stock: number, productId?: string }>
         }
     })
     const isLoading = form.formState.isSubmitting;
@@ -64,7 +78,9 @@ const ProductForm = () => {
                 description: form.getValues('description'),
                 price: form.getValues('price'),
                 inStock: form.getValues('inStock'),
-                images: form.getValues('images')
+                images: form.getValues('images'),
+                isFeatured: form.getValues('isFeatured'),
+                variants: form.getValues('variants')
             }
         }));
     }
@@ -76,6 +92,10 @@ const ProductForm = () => {
     }
 
     useEffect(() => {
+        (async () => {
+            const allVariants = await getVariants();
+            setVariants(allVariants || null);
+        })();
         if (!data) return
         setUploadedImages(data.images);
         form.setValue('title', data?.title);
@@ -83,12 +103,30 @@ const ProductForm = () => {
         form.setValue('price', data?.price);
         form.setValue('inStock', data?.inStock);
         form.setValue('images', data?.images);
+
     }, [data]);
+
+    const handleVariantChange = (value: string, variantType: string) => {
+        const formVariants = form.getValues('variants') as Array<{ variantId: string, price: number, stock: number }>;
+        const variant = formVariants.find(v => v.variantId === value);
+        if (variant) {
+            variant.variantId = value;
+        } else {
+            formVariants.push({ variantId: value, price: 0, stock: 0 });
+        }
+        form.setValue('variants', formVariants);
+        const filteredVariant = variants?.filter(v => v.name === variantType)[0].variants.filter(v => v.id === value)[0];
+
+        setSelectedVariants((prev: any) => ({
+            ...prev,
+            [variantType]: [...(prev[variantType] || []), filteredVariant?.name]
+        }));
+    };
 
     return (
         <Form {...form}>
             <form>
-                <div className="space-y-8">
+                <div className="space-y-4">
                     <div className='space-y-8'>
                         <FormField
                             control={form.control}
@@ -143,6 +181,55 @@ const ProductForm = () => {
                         </FormItem>
                     )} />
                 </div>
+                <div className="flex flex-col mt-2 justify-center">
+                    {
+                        Object.keys(selectedVariants)?.map((variant, index) => {
+                            return (
+                                <div className='flex items-center gap-2'>
+                                    <p>{variant}</p>
+                                    {
+                                        selectedVariants[variant] && selectedVariants[variant].map((v: any) => {
+                                            return (
+                                                <div key={v} className='flex items-center gap-2 text-gray-600 text-xs mr-1'>
+                                                    <span>{v}</span>
+                                                    <XCircle className='cursor-pointer' size={16} />
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                    <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>Variants</AccordionTrigger>
+                            <AccordionContent className='flex gap-4 flex-wrap justify-center'>
+                                {variants && variants.map(variantType => (
+                                    <div key={variantType.id}>
+                                        <FormLabel>{variantType.name}</FormLabel>
+                                        <Select onValueChange={(value: string) => { handleVariantChange(value, variantType.name) }}>
+                                            <SelectTrigger className="w-[180px]">
+                                                <SelectValue placeholder={`Select a ${variantType.name}`} />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup >
+                                                    <SelectLabel>{variantType.name}</SelectLabel>
+                                                    {
+                                                        variantType.variants.map((v: any, index: number) => (
+                                                            <SelectItem key={index} value={v.id}>{v.name}</SelectItem>
+                                                        ))
+                                                    }
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                ))}
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
+
                 <div className='flex gap-4 items-center py-4'>
                     {
                         uploadedImages?.map((image) => {

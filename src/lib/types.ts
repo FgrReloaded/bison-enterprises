@@ -6,3 +6,10 @@ export type VariantTypeWithVariant = {
         name: string;
     }[]
 }
+
+
+export type ProductVariant = {
+    price: number,
+    stock: number,
+    variantId: string,
+}[]

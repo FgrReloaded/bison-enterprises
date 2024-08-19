@@ -25,19 +25,27 @@ export const createVariant = async (data: any) => {
                 name,
             },
         });
-
+        const createdVariants = [];
         if (variants.length > 0) {
             for (let variant of variants) {
-                await db.variant.create({
+                const createdVariant = await db.variant.create({
                     data: {
                         name: variant,
                         typeId: sizeVariantType.id,
                     },
                 });
+                createdVariants.push(createdVariant);
             }
         }
 
-        return sizeVariantType;
+        return {
+            id: sizeVariantType.id,
+            name: sizeVariantType.name,
+            variants: createdVariants.map(variant => ({
+                id: variant.id,
+                name: variant.name,
+            })),
+        };
 
     } catch (error) {
         throw new Error("Failed to create variant");

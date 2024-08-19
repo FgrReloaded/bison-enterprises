@@ -7,6 +7,8 @@ import { Plus } from "lucide-react";
 export const AddVariants = () => {
     const dispatch = useDispatch();
 
+    
+
     return (
         <Button onClick={() => { dispatch(openModal({ type: "variantModal", })) }}>
             <Plus size={24} /> Add Variant

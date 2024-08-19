@@ -34,12 +34,12 @@ const QuickView = () => {
     });
 
     const handleProductCreation = () => {
-        mutate({ name: data.title, stock: data.inStock, ...data });
+        const refractoredData = {name: data.title, stock: data.inStock, ...data};
+        mutate({product: refractoredData, variant: data.variants});
     }
 
     if (!data) return null;
-
-    const { title, description, price, inStock, images } = data;
+    const { title, description, price, inStock, images, variants } = data;
 
 
     return (

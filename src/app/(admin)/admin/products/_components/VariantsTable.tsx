@@ -1,11 +1,22 @@
+"use client"
 import { getVariants } from "@/actions/admin/variant"
 import VariantItem from "./VariantItem";
 import { Variant } from "@prisma/client";
 import { VariantTypeWithVariant } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
 
 
-const VariantsTable = async () => {
-    const variants = await getVariants();
+const VariantsTable = () => {
+    const { data: variants, isLoading } = useQuery({
+        queryKey: ['variants'],
+        queryFn: getVariants,
+        initialData: [],
+    })
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

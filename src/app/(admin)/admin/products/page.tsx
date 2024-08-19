@@ -6,6 +6,7 @@ import { getProducts } from "@/actions/admin/product";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AddVariants } from "./_components/AddVariants";
 import VariantsTable from "./_components/VariantsTable";
+import { getVariants } from "@/actions/admin/variant";
 
 
 export default async function AdminProductPage() {
@@ -15,10 +16,16 @@ export default async function AdminProductPage() {
         queryKey: ['products'],
         queryFn: getProducts,
     });
+    await queryClient.prefetchQuery({
+        queryKey: ['variants'],
+        queryFn: getVariants,
+    });
 
 
     return (
-        <Tabs defaultValue="Variants">
+        <HydrationBoundary state={dehydrate(queryClient)}>
+
+        <Tabs defaultValue="Products">
             <div>
                 <nav className="flex gap-4">
                     <TabsList className="bg-transparent">
@@ -47,9 +54,7 @@ export default async function AdminProductPage() {
                     <div className="flex flex-col px-2">
                         <h1 className="text-4xl font-bold uppercase my-6">All Products</h1>
                         <div>
-                            <HydrationBoundary state={dehydrate(queryClient)}>
                                 <ProductsTable />
-                            </HydrationBoundary>
                         </div>
                     </div>
 
@@ -69,5 +74,7 @@ export default async function AdminProductPage() {
                 </div>
             </TabsContent>
         </Tabs>
+        </HydrationBoundary>
+
     )
 }

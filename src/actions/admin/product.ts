@@ -4,10 +4,30 @@ import { db } from "@/lib/db";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { Product } from "@prisma/client";
+import { ProductVariant } from "@/lib/types";
 
 export const getProducts = async () => {
     try {
-        const products = await db.product.findMany();
+        const products = await db.product.findMany({
+            include: {
+                variants: {
+                    select: {
+                        productId: true,
+                        variant: {
+                            select: {
+                                id: true,
+                                name: true,
+                                type: {
+                                    select: {
+                                        name: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                },
+            },
+        });
         return products;
     } catch (error) {
         console.log(error);
@@ -15,10 +35,10 @@ export const getProducts = async () => {
 }
 
 
-export const createProduct = async (product: Product) => {
+export const createProduct = async ({ product, variant }: { product: Product, variant: ProductVariant }) => {
     try {
         if (!product) throw new Error('No data to create product');
-        const { name, description, price, stock, images } = product;
+        const { name, description, price, stock, images, isFeatured } = product;
 
         const session = await getServerSession(authOptions);
 
@@ -30,13 +50,36 @@ export const createProduct = async (product: Product) => {
             return;
         }
 
+        if (!variant) {
+            const newProduct = await db.product.create({
+                data: {
+                    name,
+                    description,
+                    price,
+                    stock,
+                    images,
+                    isFeatured,
+                }
+            });
+            return newProduct;
+        }
         const newProduct = await db.product.create({
             data: {
                 name,
                 description,
                 price,
                 stock,
-                images
+                images,
+                isFeatured,
+                variants: {
+                    create: variant.map(vary => ({
+                        variant: {
+                            connect: { id: vary.variantId },
+                        },
+                        price: vary.price,
+                        stock: vary.stock,
+                    })),
+                },
             }
         });
 
