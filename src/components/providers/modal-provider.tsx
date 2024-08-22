@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import CreateProductModal from "../modals/CreateProduct";
 import ProductReview from "../modals/ProductReview";
 import DeleteProductModal from "../modals/DeleteModal";
-import CreateVariantModal from "../modals/VariantsModal";
 
 
 const ModalProvider = () => {
@@ -20,8 +19,7 @@ const ModalProvider = () => {
         <div>
             <DeleteProductModal />
             <ProductReview />
-           <CreateProductModal />
-           <CreateVariantModal />
+            <CreateProductModal />
         </div>
     )
 }

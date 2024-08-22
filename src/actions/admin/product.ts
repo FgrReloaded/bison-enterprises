@@ -8,26 +8,7 @@ import { ProductVariant } from "@/lib/types";
 
 export const getProducts = async () => {
     try {
-        const products = await db.product.findMany({
-            include: {
-                variants: {
-                    select: {
-                        productId: true,
-                        variant: {
-                            select: {
-                                id: true,
-                                name: true,
-                                type: {
-                                    select: {
-                                        name: true
-                                    }
-                                }
-                            }
-                        }
-                    },
-                },
-            },
-        });
+        const products = await db.product.findMany();
         return products;
     } catch (error) {
         console.log(error);
@@ -35,7 +16,7 @@ export const getProducts = async () => {
 }
 
 
-export const createProduct = async ({ product, variant }: { product: Product, variant: ProductVariant }) => {
+export const createProduct = async ({ product, variant }: { product: Product, variant: [] }) => {
     try {
         if (!product) throw new Error('No data to create product');
         const { name, description, price, stock, images, isFeatured } = product;
@@ -71,15 +52,7 @@ export const createProduct = async ({ product, variant }: { product: Product, va
                 stock,
                 images,
                 isFeatured,
-                variants: {
-                    create: variant.map(vary => ({
-                        variant: {
-                            connect: { id: vary.variantId },
-                        },
-                        price: vary.price,
-                        stock: vary.stock,
-                    })),
-                },
+                variants: variant
             }
         });
 
@@ -100,7 +73,6 @@ export const deleteProduct = async (id: string): Promise<boolean> => {
         if (!session || session.user.role !== 'ADMIN') {
             return false;
         }
-
         await db.product.delete({
             where: {
                 id

@@ -4,9 +4,7 @@ import { AddProduct } from "./_components/AddProduct";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getProducts } from "@/actions/admin/product";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AddVariants } from "./_components/AddVariants";
 import VariantsTable from "./_components/VariantsTable";
-import { getVariants } from "@/actions/admin/variant";
 
 
 export default async function AdminProductPage() {
@@ -16,11 +14,6 @@ export default async function AdminProductPage() {
         queryKey: ['products'],
         queryFn: getProducts,
     });
-    await queryClient.prefetchQuery({
-        queryKey: ['variants'],
-        queryFn: getVariants,
-    });
-
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
@@ -60,7 +53,7 @@ export default async function AdminProductPage() {
 
                 </div>
             </TabsContent>
-            <TabsContent value="Variants">
+            {/* <TabsContent value="Variants">
                 <div className="flex flex-col">
                     <div className="ml-auto">
                         <AddVariants />
@@ -72,7 +65,7 @@ export default async function AdminProductPage() {
                     </div>
 
                 </div>
-            </TabsContent>
+            </TabsContent> */}
         </Tabs>
         </HydrationBoundary>
 

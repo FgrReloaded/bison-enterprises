@@ -1,10 +1,6 @@
 "use client"
 import BillBoards from "@/components/billboards";
 import FeatureCard from "@/components/ServiceCard";
-import { getProfile } from "@/lib/manage-account";
-import { setUserProfile } from "@/lib/slices/userSlice";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import Banner from "@/components/Banner";
 import QuickCategory from "@/components/category/QuickCategory";
 import { MoveRight } from "lucide-react";
@@ -12,30 +8,9 @@ import TrendingProducts from "@/components/products/TrendingProducts";
 import { FAQ } from "@/components/FAQ";
 import Testimonial from "@/components/Testimonial";
 import Incentive from "@/components/Incentive";
-import { adminExists } from "@/lib/check-if-admin";
-import { useRouter } from "next/navigation";
 import ProductCarousel from "@/components/products/ProductCarousel";
 
 export default function Home() {
-    const dispatch = useDispatch();
-    const router = useRouter();
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            const isAdminExists = await adminExists();
-            if (!isAdminExists) {
-                router.push("/setup");
-            }
-            const profile = await getProfile();
-            console.log(profile)
-            if (!profile) return;
-            dispatch(setUserProfile(profile))
-        }
-
-        fetchProfile()
-    }, [dispatch])
-
-
 
     return (
         <>

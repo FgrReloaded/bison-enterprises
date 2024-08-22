@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner"
 import QueryProvider from "@/components/providers/query-provider";
 import { Suspense } from "react";
 import LoadingPage from "./loading";
+import StoreProvider from "@/components/providers/StoreProvider";
 
 
 
@@ -24,12 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Suspense fallback={<LoadingPage/>}>
-        <QueryProvider>
-          {children}
-          <Toaster />
-          
-        </QueryProvider>
+        <Suspense fallback={<LoadingPage />}>
+          <StoreProvider>
+            <QueryProvider>
+              {children}
+              <Toaster />
+            </QueryProvider>
+          </StoreProvider>
         </Suspense>
       </body>
     </html>

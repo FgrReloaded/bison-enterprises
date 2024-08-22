@@ -19,7 +19,7 @@ const CreateProductModal = () => {
         <div>
 
             <Dialog open={isModalOpen} onOpenChange={handleOnClose}>
-                <DialogContent>
+                <DialogContent className='max-w-[80%]'>
                     <DialogHeader>
                         <DialogTitle>Create a New Product</DialogTitle>
                         <DialogDescription>

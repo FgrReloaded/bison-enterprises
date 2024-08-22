@@ -6,7 +6,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 
 const ProductImages = (images: any) => {
-    const [activeImage, setActiveImage] = useState(images.images[0]);
+    const [activeImage, setActiveImage] = useState(images?.images[0]);
 
     const handleSlide = (index: number)=>{
         const temp = activeImage;

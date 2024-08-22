@@ -13,12 +13,15 @@ import {
     MenubarTrigger,
 } from "@/components/ui/menubar"
 import { signOut, useSession } from 'next-auth/react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openSidebar } from '@/lib/slices/sidebarSlice';
+import { RootState } from '@/lib/store'
 
 const Navbar = () => {
     const { data: session, status } = useSession();
     const dispatch = useDispatch();
+    const data = useSelector((state: RootState) => state.cart)
+    const totalItems = data.items.reduce((acc, item) => acc + item.quantity, 0)
 
     return (
         <header className="py-4 px-4 flex items-center justify-between">
@@ -47,7 +50,7 @@ const Navbar = () => {
                     <Button onClick={() => { dispatch(openSidebar()) }} className='rounded-full relative'>
                         <ShoppingCart size={20} />
                         <span className='absolute -top-2 -right-2 text-black rounded-full text-sm'>
-                            <Badge className='hover:bg-destructive' variant={'destructive'}>0</Badge>
+                            <Badge className='hover:bg-destructive' variant={'destructive'}>{totalItems}</Badge>
                         </span>
                     </Button>
                 }

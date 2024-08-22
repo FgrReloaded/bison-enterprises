@@ -1,17 +1,17 @@
-import Image from "next/image";
 import BreadcrumbProduct from "./_components/Breadcrumb";
 import ProductTab from "./_components/ProductTab";
 import SimilarProducts from "./_components/SimilarProducts";
 import { Button } from "@/components/ui/button";
 import { CreditCard } from "lucide-react";
 import { getProduct } from "@/actions/products";
-import { CldImage } from "next-cloudinary";
 import ProductImages from "./_components/ProductImages";
+import ProductMeta from "./_components/ProductMeta";
 
 
 export default async function ProductPage({ params }: { params: { product: string } }) {
 
     const product = await getProduct(params.product);
+    const productVariant = product?.variants;
 
     return (
         <section className="py-12 sm:py-16">
@@ -19,15 +19,12 @@ export default async function ProductPage({ params }: { params: { product: strin
                 <nav className="flex">
                     <BreadcrumbProduct name={product?.name} />
                 </nav>
-
                 <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
                     <div className="lg:col-span-3 lg:row-end-1">
                         <ProductImages images={product?.images} />
                     </div>
-
                     <div className="lg:col-span-2 lg:row-span-2 lg:row-end-2">
                         <h1 className="sm: text-2xl font-bold text-gray-900 sm:text-3xl">{product?.name}</h1>
-
                         <div className="mt-5 flex items-center">
                             <div className="flex items-center">
                                 <svg className="block h-4 w-4 align-middle text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -48,58 +45,7 @@ export default async function ProductPage({ params }: { params: { product: strin
                             </div>
                             <p className="ml-2 text-sm font-medium text-gray-500">1,209 Reviews</p>
                         </div>
-
-                        <h2 className="mt-8 text-base text-gray-900">Model</h2>
-                        <div className="mt-3 flex select-none flex-wrap items-center gap-1">
-                            <label className="">
-                                <input readOnly type="radio" name="type" value="Powder" className="peer sr-only" checked />
-                                <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Powder</p>
-                            </label>
-                            <label className="">
-                                <input readOnly type="radio" name="type" value="Whole Bean" className="peer sr-only" />
-                                <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Whole Bean</p>
-                            </label>
-                            <label className="">
-                                <input readOnly type="radio" name="type" value="Groud" className="peer sr-only" />
-                                <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">Groud</p>
-                            </label>
-                        </div>
-
-                        <h2 className="mt-8 text-base text-gray-900">Size</h2>
-                        <div className="mt-3 flex select-none flex-wrap items-center gap-1">
-                            <label className="">
-                                <input readOnly type="radio" name="subscription" value="4 Months" className="peer sr-only" />
-                                <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">4 Months</p>
-                                <span className="mt-1 block text-center text-xs">$80/mo</span>
-                            </label>
-                            <label className="">
-                                <input readOnly type="radio" name="subscription" value="8 Months" className="peer sr-only" checked />
-                                <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">8 Months</p>
-                                <span className="mt-1 block text-center text-xs">$60/mo</span>
-                            </label>
-                            <label className="">
-                                <input readOnly type="radio" name="subscription" value="12 Months" className="peer sr-only" />
-                                <p className="peer-checked:bg-black peer-checked:text-white rounded-lg border border-black px-6 py-2 font-bold">12 Months</p>
-                                <span className="mt-1 block text-center text-xs">$40/mo</span>
-                            </label>
-                        </div>
-
-                        <div className="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
-                            <div className="flex items-end">
-                                <h1 className="text-3xl font-bold">₹ {product?.price}</h1>
-                            </div>
-
-                            <button type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                Add to cart
-                            </button>
-                        </div>
-                        <Button variant={"outline"} type="button" className="border-2 border-gray-800 px-12 py-6 mt-12 w-full">
-                            <CreditCard size={24} className="mr-2" />
-                            Buy Now
-                        </Button>
+                        <ProductMeta price={product?.price} id={product?.id} productVariant={productVariant} />
                         <ul className="mt-8 space-y-2">
                             <li className="flex items-center text-left text-sm font-medium text-gray-600">
                                 <svg className="mr-2 block h-5 w-5 align-middle text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -121,7 +67,7 @@ export default async function ProductPage({ params }: { params: { product: strin
                         <ProductTab />
                     </div>
                 </div>
-                <SimilarProducts />
+                {/* <SimilarProducts /> */}
             </div>
         </section>
 

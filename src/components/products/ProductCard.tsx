@@ -7,6 +7,7 @@ import Link from "next/link"
 import { Product } from "@prisma/client"
 import { useDispatch } from "react-redux"
 import { openModal } from "@/lib/slices/modalSlice"
+import { CldImage } from "next-cloudinary"
 
 export const ProductCard = ({ product }: { product: Product }) => {
     const dispatch = useDispatch()
@@ -22,7 +23,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
                 <View size={20} />
             </span>
             <div className="w-[280px] h-[290px] relative">
-                <Image layout="fill" objectFit="cover" className="rounded-2xl" src="/assets/dev/slide01.jpeg" alt="Jacket image" />
+                <CldImage key={product?.id} src={product?.images[0]} fill  style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "1rem" }} alt={product?.name} />
             </div>
             <Link href={`/products/${product?.id}`} className="absolute z-10 bottom-3 mx-3 p-3 bg-white w-[calc(100%-24px)] rounded-xl shadow-sm shadow-transparent transition-all duration-500 group-hover:shadow-indigo-200 group-hover:bg-indigo-50">
                 <div className="flex items-center justify-between mb-2">

@@ -10,12 +10,9 @@ interface ModalData {
   inStock: number;
   category?: string;
   isFeatured?: boolean;
-  variants?: {
-    price: number;
-    stock: number;
-    variantId: string;
-  }[];
+  variants?: { variant: { [key: string]: string[] }, details: { price: number, stock: number } }[];
 }
+
 
 const modalSlice = createSlice({
   name: 'modals',

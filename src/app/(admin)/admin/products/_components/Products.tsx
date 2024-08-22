@@ -24,7 +24,6 @@ const ProductsTable = () => {
             </div>
         )
     }   
-    console.log(products)
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

@@ -21,7 +21,6 @@ const ProductCarousel = () => {
             </div>
         )
     }
-
     if (products.length === 0) {
         return (
             <div className='w-full flex items-center justify-center flex-col gap-6 mt-6'>
@@ -30,7 +29,7 @@ const ProductCarousel = () => {
             </div>
         )
     }
-
+    
 
     return (
         <Carousel opts={{

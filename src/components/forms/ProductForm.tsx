@@ -14,14 +14,12 @@ import { Textarea } from '../ui/textarea';
 import { Check, Upload, XCircle } from 'lucide-react';
 import { DialogFooter } from '../ui/dialog';
 import { CldImage, CldUploadWidget } from 'next-cloudinary';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/lib/slices/modalSlice';
 import UpdateProduct from '../UpdateProduct';
-import { getVariants } from '@/actions/admin/variant';
-import { VariantTypeWithVariant } from '@/lib/types';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, } from '../ui/select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { Label } from '../ui/label';
 
 
 const formSchema = z.object({
@@ -31,20 +29,26 @@ const formSchema = z.object({
     inStock: z.number().min(1, 'Minimum stock is 1'),
     images: z.array(z.string()).min(4, 'Add at least 4 images').max(6),
     isFeatured: z.boolean().optional(),
-    variants: z.array(z.object({
-        variantId: z.string(),
-        productId: z.string().optional(),
-        price: z.number().min(1, 'Price is required'),
-        stock: z.number().min(1, 'Minimum stock is 1')
-    })).optional()
+    variants: z.array(
+        z.object({
+            variant: z.record(z.array(z.union([z.string(), z.number()]))),
+            details: z.object({
+                price: z.number(),
+                stock: z.number(),
+            }),
+        })
+    ),
 })
 
 const ProductForm = () => {
     const dispatch = useDispatch();
     const { data, type } = useSelector((state: any) => state.modal);
     const [uploadedImages, setUploadedImages] = useState<Array<string>>([]);
-    const [variants, setVariants] = useState<VariantTypeWithVariant[] | null>(null)
-    const [selectedVariants, setSelectedVariants] = useState({} as any);
+    const [addingVariant, setAddingVariant] = useState(false);
+    const [newVariants, setNewVariants] = useState<{ [key: string]: string[] }>({} as any);
+    const [variantPrice, setVariantPrice] = useState(0);
+    const [variantStock, setVariantStock] = useState(0);
+    const ref = useRef<HTMLInputElement>(null);
 
     const form = useForm({
         mode: 'onChange',
@@ -56,7 +60,7 @@ const ProductForm = () => {
             inStock: 0,
             images: [] as Array<string>,
             isFeatured: false,
-            variants: [] as Array<{ variantId: string, price: number, stock: number, productId?: string }>
+            variants: [] as Array<{ variant: { [key: string]: string[] }, details: { price: number, stock: number } }>
         }
     })
     const isLoading = form.formState.isSubmitting;
@@ -92,10 +96,6 @@ const ProductForm = () => {
     }
 
     useEffect(() => {
-        (async () => {
-            const allVariants = await getVariants();
-            setVariants(allVariants || null);
-        })();
         if (!data) return
         setUploadedImages(data.images);
         form.setValue('title', data?.title);
@@ -106,28 +106,52 @@ const ProductForm = () => {
 
     }, [data]);
 
-    const handleVariantChange = (value: string, variantType: string) => {
-        const formVariants = form.getValues('variants') as Array<{ variantId: string, price: number, stock: number }>;
-        const variant = formVariants.find(v => v.variantId === value);
-        if (variant) {
-            variant.variantId = value;
-        } else {
-            formVariants.push({ variantId: value, price: 0, stock: 0 });
-        }
-        form.setValue('variants', formVariants);
-        const filteredVariant = variants?.filter(v => v.name === variantType)[0].variants.filter(v => v.id === value)[0];
+    const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const price = e.target.value;
+        setVariantPrice(Number(price));
+    }
+    const handleStockChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const stock = e.target.value;
+        setVariantStock(Number(stock));
+    }
 
-        setSelectedVariants((prev: any) => ({
-            ...prev,
-            [variantType]: [...(prev[variantType] || []), filteredVariant?.name]
-        }));
-    };
+    const createVariantType = () => {
+        const variantType = ref.current?.value;
+        if (!variantType) return;
+        setNewVariants((prev) => ({ ...prev, [variantType]: [] }));
+        ref.current.value = '';
+    }
+
+    const handleVariant = (e: ChangeEvent<HTMLInputElement>, variant: string) => {
+        const value = e.target.value;
+        if (!value) return;
+        if (!value.includes(',')) return;
+        const variantList = value.split(',');
+        setNewVariants((prev: any) => ({ ...prev, [variant]: [...(prev[variant] || []), variantList[0]] }));
+        e.target.value = '';
+    }
+
+    const saveVariants = () => {
+        const formVariants = form.getValues('variants');
+        const newVariant = {
+            variant: newVariants,
+            details: {
+                price: variantPrice,
+                stock: variantStock
+            }
+        }
+        formVariants.push(newVariant);
+        form.setValue('variants', formVariants);
+        setNewVariants({});
+        setVariantPrice(0);
+        setVariantStock(0);
+    }
 
     return (
         <Form {...form}>
             <form>
                 <div className="space-y-4">
-                    <div className='space-y-8'>
+                    <div className='flex gap-8 items-center flex-wrap'>
                         <FormField
                             control={form.control}
                             name='title'
@@ -143,15 +167,13 @@ const ProductForm = () => {
                                 </FormItem>
                             )}
                         />
-                    </div>
-                    <div className='flex gap-8 items-center'>
                         <FormField control={form.control} name='price' render={({ field }) => (
                             <FormItem>
                                 <FormLabel>
                                     Set Price (INR)
                                 </FormLabel>
                                 <FormControl>
-                                    <Input type='number' className='py-6' placeholder='Set Price' disabled={isLoading} {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
+                                    <Input type='number' className='py-6 w-32' placeholder='Set Price' disabled={isLoading} {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -162,7 +184,7 @@ const ProductForm = () => {
                                     Items in stock
                                 </FormLabel>
                                 <FormControl>
-                                    <Input type='number' className='py-6' placeholder='Set available quantity' disabled={isLoading}  {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
+                                    <Input type='number' className='py-6 w-32' placeholder='Set available quantity' disabled={isLoading}  {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -181,50 +203,43 @@ const ProductForm = () => {
                         </FormItem>
                     )} />
                 </div>
-                <div className="flex flex-col mt-2 justify-center">
-                    {
-                        Object.keys(selectedVariants)?.map((variant, index) => {
-                            return (
-                                <div className='flex items-center gap-2'>
-                                    <p>{variant}</p>
-                                    {
-                                        selectedVariants[variant] && selectedVariants[variant].map((v: any) => {
-                                            return (
-                                                <div key={v} className='flex items-center gap-2 text-gray-600 text-xs mr-1'>
-                                                    <span>{v}</span>
-                                                    <XCircle className='cursor-pointer' size={16} />
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            )
-                        })
-                    }
+                <div className='flex flex-col mt-2 gap-2'>
+                    <div className='flex items-center gap-2 flex-wrap'>
+                        {
+                            Object.keys(newVariants)?.map((variant, index) => {
+                                return (
+                                    <div key={variant} className='flex items-center gap-2'>
+                                        <p>{variant}</p>
+                                        <Input type='text' onChange={(e) => { handleVariant(e, variant) }} className='w-64' placeholder='Variants Name (Seperate with ,) ' />
+                                    </div>
+                                )
+                            })
+                        }
+                        {
+                            Object.keys(newVariants)?.length > 0 &&
+                            <div className='flex gap-2 items-center'>
+                                <Label>Price</Label>
+                                <Input onChange={handlePriceChange} type='number' placeholder='Price' value={variantPrice} className='w-32' />
+                                <Label>Stock</Label>
+                                <Input onChange={handleStockChange} type='number' placeholder='Stock' value={variantStock} className='w-32' />
+                            </div>
+                        }
+                        {
+                            Object.keys(newVariants)?.length > 0 ?
+                                <Button type='button' onClick={saveVariants} className='ml-auto'>Save Variant</Button> :
+                                <Button type='button' onClick={() => { setAddingVariant(true); console.log(newVariants) }} className='ml-auto'>Add Variant</Button>
+                        }
+                    </div>
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="item-1">
                             <AccordionTrigger>Variants</AccordionTrigger>
-                            <AccordionContent className='flex gap-4 flex-wrap justify-center'>
-                                {variants && variants.map(variantType => (
-                                    <div key={variantType.id}>
-                                        <FormLabel>{variantType.name}</FormLabel>
-                                        <Select onValueChange={(value: string) => { handleVariantChange(value, variantType.name) }}>
-                                            <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder={`Select a ${variantType.name}`} />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup >
-                                                    <SelectLabel>{variantType.name}</SelectLabel>
-                                                    {
-                                                        variantType.variants.map((v: any, index: number) => (
-                                                            <SelectItem key={index} value={v.id}>{v.name}</SelectItem>
-                                                        ))
-                                                    }
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
+                            <AccordionContent className='flex gap-4 flex-wrap px-2'>
+                                {addingVariant &&
+                                    <div className='flex gap-2 mt-2'>
+                                        <Input ref={ref} type='text' placeholder='Variant Type' />
+                                        <Button type='button' onClick={createVariantType} className='ml-auto'>Create Variant Type</Button>
                                     </div>
-                                ))}
+                                }
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>

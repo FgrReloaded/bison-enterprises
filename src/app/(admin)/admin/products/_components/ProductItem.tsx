@@ -7,6 +7,7 @@ import { CldImage } from 'next-cloudinary'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import ProductVisibility from './ProductVisibility'
+import Link from 'next/link'
 
 const ProductItem = ({ product }: { product: Product }) => {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const ProductItem = ({ product }: { product: Product }) => {
                 <CldImage key={product.id} src={product.images[0]} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={product.name} />
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                {product.name} <span className='text-gray-500 underline text-[0.65rem] cursor-pointer'>Preview</span>
+                {product.name} <Link href={`/products/${product?.id}`} ><span className='text-gray-500 underline text-[0.65rem] cursor-pointer'>Preview</span></Link>
             </td>
             <td className="px-6 py-4">
                 <UpdateStocks id={product.id} stock={product.stock} />

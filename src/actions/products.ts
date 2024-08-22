@@ -8,7 +8,7 @@ export const getProducts = async () => {
     try {
         const products = await db.product.findMany({
             where: {
-                isHide: false
+                isHide: false 
             },
             select: {
                 id: true,
@@ -25,12 +25,12 @@ export const getProducts = async () => {
     }
 }
 
-export const getProduct = async (id: string): Promise<Product | null> => {
+export const getProduct = async (id: string) => {
     try {
         const product = await db.product.findUnique({
             where: {
                 id
-            }
+            },
         });
         return product;
     } catch (error) {
