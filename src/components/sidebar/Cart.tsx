@@ -12,14 +12,19 @@ import { CldImage } from 'next-cloudinary'
 import { removeFromCart } from '@/actions/cart'
 import { toast } from 'sonner'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-
 const Cart = () => {
     const dispatch = useDispatch();
     const data = useSelector((state: RootState) => state.cart)
     const queryClient = useQueryClient();
 
     const totalPrice = data?.items.reduce((acc, item) => {
-        return acc + item.product.price * item.quantity
+        const matchingVariant = item.product.variants.find((variant: any) =>
+            Object.keys(item.variant || {}).every(key =>
+                variant.variant[key] && variant.variant[key].includes(item?.variant?.[key])
+            )
+        );
+        const price = matchingVariant ?  (matchingVariant as any)?.details.price : item.product.price;
+        return acc + price * item.quantity;
     }, 0)
 
     const { mutate } = useMutation({
@@ -54,6 +59,12 @@ const Cart = () => {
                     }
                     {
                         data?.items.length > 0 && data?.items.map((item, index) => {
+                            const matchingVariant: any = item.product.variants.find((variant: any) =>
+                                Object.keys(item.variant || {}).every(key =>
+                                    variant.variant[key] && variant.variant[key].includes(item.variant?.[key])
+                                )
+                            );
+                            const price = matchingVariant ? (matchingVariant as any)?.details?.price : item.product.price;
                             return (
                                 <div key={index}>
                                     <div className='flex items-center justify-between gap-6'>
@@ -62,7 +73,6 @@ const Cart = () => {
                                         </div>
                                         <div className='flex flex-col mr-auto'>
                                             <Link onClick={() => { dispatch(closeSidebar()) }} href={`/products/${item.productId}`} className='font-bold'>{item.product.name}</Link>
-                                            {/* <p className='text-sm text-gray-600'>Category</p> */}
                                             {
                                                 item?.variant && <p className='text-gray-400 mt-1 text-sm flex flex-col'>{Object.keys(item.variant).map((key, index) => {
                                                     return (
@@ -73,7 +83,7 @@ const Cart = () => {
                                             <p className='text-gray-400 mt-1 text-sm'>Qty: {item.quantity}</p>
                                         </div>
                                         <div className='flex gap-6 flex-col items-end'>
-                                            <p className='text-sm font-semibold'>₹ {item.product.price}</p>
+                                            <p className='text-sm font-semibold'>₹ {price}</p>
                                             <span className='text-red-700 cursor-pointer'>
                                                 <Trash2 onClick={() => { handleDelete(item?.id) }} size={20} />
                                             </span>
@@ -104,7 +114,5 @@ const Cart = () => {
         </div>
     )
 }
-
-
 
 export default Cart

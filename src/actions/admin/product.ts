@@ -48,7 +48,7 @@ export const createProduct = async ({ product, variant }: { product: Product, va
             data: {
                 name,
                 description,
-                price,
+                price: ((variant as any)[0]?.details?.price) || price,
                 stock,
                 images,
                 isFeatured,

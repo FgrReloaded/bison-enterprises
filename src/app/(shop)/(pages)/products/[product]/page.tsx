@@ -64,7 +64,7 @@ export default async function ProductPage({ params }: { params: { product: strin
                     </div>
 
                     <div className="lg:col-span-3">
-                        <ProductTab />
+                        <ProductTab description={product?.description!} />
                     </div>
                 </div>
                 {/* <SimilarProducts /> */}

@@ -125,10 +125,7 @@ const ProductForm = () => {
     const handleVariant = (e: ChangeEvent<HTMLInputElement>, variant: string) => {
         const value = e.target.value;
         if (!value) return;
-        if (!value.includes(',')) return;
-        const variantList = value.split(',');
-        setNewVariants((prev: any) => ({ ...prev, [variant]: [...(prev[variant] || []), variantList[0]] }));
-        e.target.value = '';
+        setNewVariants({ [variant]: [value] });
     }
 
     const saveVariants = () => {
@@ -239,6 +236,28 @@ const ProductForm = () => {
                                         <Input ref={ref} type='text' placeholder='Variant Type' />
                                         <Button type='button' onClick={createVariantType} className='ml-auto'>Create Variant Type</Button>
                                     </div>
+                                }
+                                {
+                                    form.getValues('variants')?.map((variant: any, index: number) => {
+                                        return (
+                                            <div key={index} className='flex flex-col gap-2'>
+                                                {
+                                                    Object.keys(variant?.variant)?.map((key) => {
+                                                        return (
+                                                            <div key={key} className='flex gap-2 ml-2'>
+                                                                <p>{key}: </p>
+                                                                <p>{variant?.variant[key]?.join(', ')}</p>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                                <div className='flex gap-2'>
+                                                    <p>Price: {variant?.details?.price}</p>
+                                                    <p>Stock: {variant?.details?.stock}</p>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
                                 }
                             </AccordionContent>
                         </AccordionItem>

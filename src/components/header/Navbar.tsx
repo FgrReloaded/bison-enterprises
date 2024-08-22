@@ -21,7 +21,7 @@ const Navbar = () => {
     const { data: session, status } = useSession();
     const dispatch = useDispatch();
     const data = useSelector((state: RootState) => state.cart)
-    const totalItems = data.items.reduce((acc, item) => acc + item.quantity, 0)
+    const totalItems = data.items.length;
 
     return (
         <header className="py-4 px-4 flex items-center justify-between">
@@ -60,7 +60,7 @@ const Navbar = () => {
                     </span>
                 }
                 {session && session.user.role === "ADMIN" &&
-                    <Link  href={"/admin"}>
+                    <Link href={"/admin"}>
                         <Button className='rounded-full'>
                             Dashboard
                         </Button>
