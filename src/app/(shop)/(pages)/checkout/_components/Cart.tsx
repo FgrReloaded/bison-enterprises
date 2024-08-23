@@ -9,15 +9,6 @@ interface CartProps {
 }
 
 export function Cart({ data }: CartProps) {
-    const totalPrice = data?.items.reduce((acc: any, item: any) => {
-        const matchingVariant = item.product.variants.find((variant: any) =>
-            Object.keys(item.variant || {}).every(key =>
-                variant.variant[key] && variant.variant[key].includes(item?.variant?.[key])
-            )
-        );
-        const price = matchingVariant ? (matchingVariant as any)?.details.price : item.product.price;
-        return acc + price * item.quantity;
-    }, 0)
     return (
         <>
             <div className="grid grid-cols-12 mt-8 max-md:hidden pb-6 border-b border-gray-200">

@@ -1,6 +1,6 @@
 import { Trash2 } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -17,15 +17,19 @@ const Cart = () => {
     const data = useSelector((state: RootState) => state.cart)
     const queryClient = useQueryClient();
 
-    const totalPrice = data?.items.reduce((acc, item) => {
-        const matchingVariant = item.product.variants.find((variant: any) =>
-            Object.keys(item.variant || {}).every(key =>
-                variant.variant[key] && variant.variant[key].includes(item?.variant?.[key])
-            )
-        );
-        const price = matchingVariant ?  (matchingVariant as any)?.details.price : item.product.price;
-        return acc + price * item.quantity;
-    }, 0)
+    const totalPrice = useMemo(() => {
+        return data?.items.reduce((acc, item) => {
+            const matchingVariant = item.product.variants.find((variant: any) =>
+                Object.keys(item.variant || {}).every(key =>
+                    variant.variant[key] && variant.variant[key].includes(item?.variant?.[key])
+                )
+            );
+            const price = matchingVariant ? (matchingVariant as any)?.details.price : item.product.price;
+            return acc + price * item.quantity;
+        }, 0)
+    }, [data?.items])
+
+
 
     const { mutate } = useMutation({
         mutationFn: removeFromCart,
@@ -106,7 +110,7 @@ const Cart = () => {
 
                 </div>
                 <Link onClick={() => { dispatch(closeSidebar()) }} href="/checkout" className='w-full'>
-                    <Button disabled={totalPrice===0} className='w-full'>
+                    <Button disabled={totalPrice === 0} className='w-full'>
                         Checkout
                     </Button>
                 </Link>

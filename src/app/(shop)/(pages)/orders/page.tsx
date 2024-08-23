@@ -76,7 +76,7 @@ export default function Order() {
 
                                         <div className="flex items-center justify-start mt-5 sh sm:mt-0 sm:justify-end">
                                             <a href="#" title="" className="p-1 -m-1 text-sm font-medium text-[#71717a] transition-all duration-200 rounded jp xp yp eq aq"> View Product </a>
-                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
@@ -143,7 +143,7 @@ export default function Order() {
 
                                         <div className="flex items-center justify-start mt-5 sh sm:mt-0 sm:justify-end">
                                             <a href="#" title="" className="p-1 -m-1 text-sm font-medium text-[#71717a] transition-all duration-200 rounded jp xp yp eq aq"> View Product </a>
-                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
