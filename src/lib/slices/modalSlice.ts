@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type ModalType = "productForm" | "quickView" | "deleteProduct" | "updateProduct" | "variantModal";
+export type ModalType = "productForm" | "quickView" | "deleteProduct" | "updateProduct" | "variantModal" | "newBillboard";
 
 interface ModalData {
   title: string;

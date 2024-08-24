@@ -116,7 +116,7 @@ export default function CheckOut() {
                 if (r.success) {
                     emptyCart(userData?.id);
                     // setShowConfetti(true);
-                    router.push("/")
+                    router.push("/orders")
                 }
             },
             prefill: {

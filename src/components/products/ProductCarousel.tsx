@@ -11,7 +11,7 @@ import { SquareDashedKanban } from 'lucide-react'
 const ProductCarousel = () => {
     const { data: products, isLoading, error } = useQuery({
         queryKey: ['shop-products'],
-        queryFn: async () => getProducts(),
+        queryFn: () => getProducts(),
         initialData: [],
     });
     if (isLoading) {

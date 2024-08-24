@@ -38,9 +38,6 @@ const UpdateStocks = ({ id, stock }: StockProps) => {
                 })
             });
 
-            queryClient.invalidateQueries({
-                queryKey: ['products']
-            });
             toast.success('Product updated successfully');
         },
         onError: (error) => {

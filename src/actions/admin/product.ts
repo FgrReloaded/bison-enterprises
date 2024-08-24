@@ -169,3 +169,38 @@ export const productVisibility = async ({ id, isHide }: { id: string, isHide: bo
         throw new Error('Failed to hide product');
     }
 }
+
+export const featuredProduct = async ({ id }: { id: string }): Promise<Product> => {
+    try {
+        if (!id) throw new Error('No product id provided');
+        const session = await getServerSession(authOptions);
+
+        if (!session || session.user.role !== 'ADMIN') {
+            throw new Error('No product id provided');
+        }
+
+        const product = await db.product.findUnique({
+            where: {
+                id
+            }
+        });
+
+        if (!product) {
+            throw new Error('No product found');
+        }
+
+        const updatedProduct = await db.product.update({
+            where: {
+                id
+            },
+            data: {
+                isFeatured: !product.isFeatured
+            }
+        });
+
+        return updatedProduct;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to update product');
+    }
+}

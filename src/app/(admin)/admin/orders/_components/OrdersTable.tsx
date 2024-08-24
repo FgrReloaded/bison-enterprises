@@ -1,49 +1,49 @@
 "use client"
-import TableItem from './ProductItem'
-import { ProductSkeleton } from './ProductSkeleton';
-import { Product } from '@prisma/client';
-import { useQuery } from '@tanstack/react-query';
-import { getProducts } from '@/actions/admin/product';
-import { SquareDashedKanban } from 'lucide-react';
 
-const ProductsTable = () => {
-    const { data: products, isLoading } = useQuery({
-        queryKey: ['products'],
-        queryFn: getProducts,
+import React from 'react'
+import OrderItem from './OrderItem'
+import { SquareDashedKanban } from 'lucide-react'
+import { fetchAllOrders } from '@/actions/admin/orders'
+import { useQuery } from '@tanstack/react-query'
+
+const OrdersTable = () => {
+    const { data: orders, isLoading } = useQuery({
+        queryKey: ['all-orders'],
+        queryFn: fetchAllOrders,
+        initialData: [],
     })
 
     if (isLoading) {
-        return <ProductSkeleton />
+        return <div className='w-full flex items-center justify-center flex-col gap-6 mt-6 mx-auto'>
+            <SquareDashedKanban size={48} className='text-gray-500 dark:text-gray-400' />
+            <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>Loading...</span>
+        </div>
     }
 
-    if (products?.length === 0) {
+    if (orders?.length === 0) {
         return (
-            <div className='w-full flex items-center justify-center flex-col gap-6 mt-6'>
+            <div className='w-full flex items-center justify-center flex-col gap-6 mt-6 mx-auto'>
                 <SquareDashedKanban size={48} className='text-gray-500 dark:text-gray-400' />
-                <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>No products found</span>
+                <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>No Orders found</span>
             </div>
         )
-    }   
-
+    }
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                            Cover Image
+                            Order Id
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Product
+                            Products
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            In Stock
+                            Status
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Price
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Featured
+                            Amount
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Action
@@ -52,9 +52,7 @@ const ProductsTable = () => {
                 </thead>
                 <tbody>
                     {
-                        products?.map((product: Product, index: number) => (
-                            <TableItem key={index} product={product} />
-                        ))
+                        orders?.map(order => <OrderItem order={order} />)
                     }
                 </tbody>
             </table>
@@ -62,4 +60,4 @@ const ProductsTable = () => {
     )
 }
 
-export default ProductsTable
+export default OrdersTable

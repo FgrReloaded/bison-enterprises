@@ -18,55 +18,32 @@ export default async function AdminProductPage() {
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
 
-        <Tabs defaultValue="Products">
-            <div>
-                <nav className="flex gap-4">
-                    <TabsList className="bg-transparent">
-                        <TabsTrigger value="Products" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none" >
-                            <span className="text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800"> Products </span>
-                        </TabsTrigger>
-                        <TabsTrigger value="Categories" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none">
-                            <span className="inline-flex items-center text-sm font-medium text-gray-600">
-                                Categories
-                            </span>
-                        </TabsTrigger>
-                        <TabsTrigger value="Variants" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none">
-                            <span className="inline-flex items-center text-sm font-medium text-gray-600">
-                                Variants
-                            </span>
-                        </TabsTrigger>
-                    </TabsList>
-                </nav>
-            </div>
-            <TabsContent value="Products">
-                <div className="flex flex-col">
-                    <div className="ml-auto">
-                        <AddProduct />
-                    </div>
-                    <Separator className="my-4" />
-                    <div className="flex flex-col px-2">
-                        <h1 className="text-4xl font-bold uppercase my-6">All Products</h1>
-                        <div>
-                                <ProductsTable />
+            <Tabs defaultValue="Products">
+                <div>
+                    <nav className="flex gap-4">
+                        <TabsList className="bg-transparent">
+                            <TabsTrigger value="Products" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none" >
+                                <span className="text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800"> Products </span>
+                            </TabsTrigger>
+                        </TabsList>
+                    </nav>
+                </div>
+                <TabsContent value="Products">
+                    <div className="flex flex-col">
+                        <div className="ml-auto">
+                            <AddProduct />
                         </div>
-                    </div>
+                        <Separator className="my-4" />
+                        <div className="flex flex-col px-2">
+                            <h1 className="text-4xl font-bold uppercase my-6">All Products</h1>
+                            <div>
+                                <ProductsTable />
+                            </div>
+                        </div>
 
-                </div>
-            </TabsContent>
-            {/* <TabsContent value="Variants">
-                <div className="flex flex-col">
-                    <div className="ml-auto">
-                        <AddVariants />
                     </div>
-                    <Separator className="my-4" />
-                    <div className="flex flex-col px-2">
-                        <h1 className="text-4xl font-bold uppercase my-6">All Variants</h1>
-                        <VariantsTable />
-                    </div>
-
-                </div>
-            </TabsContent> */}
-        </Tabs>
+                </TabsContent>
+            </Tabs>
         </HydrationBoundary>
 
     )

@@ -12,7 +12,7 @@ import { CldImage } from "next-cloudinary"
 export const ProductCard = ({ product }: { product: Product }) => {
     const dispatch = useDispatch()
     const openQuickView = () => {
-        dispatch(openModal({ type: "quickView", data: { ...product, title: "", inStock: 5 } }))
+        // dispatch(openModal({ type: "quickView", data: { ...product, title: "", inStock: 5 } }))
     }
     return (
         <div className="relative bg-cover group rounded-3xl bg-center overflow-hidden mx-auto sm:mr-0 xl:mx-auto cursor-pointer">
@@ -27,7 +27,9 @@ export const ProductCard = ({ product }: { product: Product }) => {
             </div>
             <Link href={`/products/${product?.id}`} className="absolute z-10 bottom-3 mx-3 p-3 bg-white w-[calc(100%-24px)] rounded-xl shadow-sm shadow-transparent transition-all duration-500 group-hover:shadow-indigo-200 group-hover:bg-indigo-50">
                 <div className="flex items-center justify-between mb-2">
-                    <h6 className="font-semibold text-base leading-7 text-black ">{product?.name}</h6>
+                    <h6 className="font-semibold text-base leading-7 text-black ">{product?.name.substring(0, 20) + "..."}
+
+                    </h6>
                     <h6 className="font-semibold text-base leading-7 text-indigo-600 text-right">₹{product?.price}</h6>
                 </div>
                 <p className="text-xs leading-5 text-gray-500">Women's Winter Wear</p>

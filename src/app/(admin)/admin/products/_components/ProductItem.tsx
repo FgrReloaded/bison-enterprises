@@ -8,9 +8,14 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import ProductVisibility from './ProductVisibility'
 import Link from 'next/link'
+import { Switch } from '@/components/ui/switch'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { featuredProduct } from '@/actions/admin/product'
+import { toast } from 'sonner'
 
 const ProductItem = ({ product }: { product: Product }) => {
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
 
 
 
@@ -22,6 +27,34 @@ const ProductItem = ({ product }: { product: Product }) => {
         dispatch(openModal({ type: 'updateProduct', data: { inStock: product.stock, title: product.name, ...product } }))
     }
 
+    const { mutate } = useMutation({
+        mutationFn: featuredProduct,
+        onSuccess: (newProduct: Product) => {
+            queryClient.setQueryData(['products'], (oldData: Product[]) => {
+                return oldData.map((product: Product) => {
+                    if (product.id === newProduct.id) {
+                        return newProduct
+                    }
+                    return product
+                })
+            });
+
+            if(newProduct.isFeatured){
+                toast.success('Product featured successfully');
+            }else{
+                toast.success('Product unfeatured successfully');
+            }
+        },
+        onError: (error) => {
+            console.error(error);
+            toast.error('Failed to featured product');
+        }
+    });
+
+
+    const handleCheckedChanged = () => {
+        mutate({ id: product.id })
+    }
 
 
     return (
@@ -37,6 +70,12 @@ const ProductItem = ({ product }: { product: Product }) => {
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                 ₹ {product.price}
+            </td>
+            <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                <Switch
+                    checked={product?.isFeatured ?? false}
+                    onCheckedChange={handleCheckedChanged}
+                />
             </td>
             <td className="px-6 py-4">
                 <div className='flex gap-4'>

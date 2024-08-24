@@ -15,7 +15,6 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // If the user is authenticated and authorized, or it's not an admin route, continue
   return NextResponse.next()
 }
 
