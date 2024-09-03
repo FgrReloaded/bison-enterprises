@@ -36,7 +36,7 @@ export function Cart({ data }: CartProps) {
                         );
                         const price = matchingVariant ? (matchingVariant as any)?.details?.price : item.product.price;
                         return (
-                            <div
+                            <div key={index}
                                 className="flex flex-col min-[500px]:flex-row min-[500px]:items-center gap-4 py-6  border-b border-gray-200 group">
                                 <div className="w-full md:max-w-[126px] relative h-32">
                                     <CldImage key={item?.id} src={item.product.images[0]} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={item.product.name} />

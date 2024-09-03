@@ -52,7 +52,7 @@ const OrdersTable = () => {
                 </thead>
                 <tbody>
                     {
-                        orders?.map(order => <OrderItem order={order} />)
+                        orders?.map((order,index) => <OrderItem key={index} order={order} />)
                     }
                 </tbody>
             </table>

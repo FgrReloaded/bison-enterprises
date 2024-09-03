@@ -1,5 +1,4 @@
 import { VariantTypeWithVariant } from '@/lib/types'
-import { Variant } from '@prisma/client'
 import React from 'react'
 import {
     Select,
@@ -31,7 +30,7 @@ const VariantItem = ({ variant }: { variant: VariantTypeWithVariant }) => {
                             <SelectLabel>Variants</SelectLabel>
                             {
                                 variant.variants.map((v: any, index: number) => (
-                                    <SelectItem value={v.name.toLowerCase()}>{v.name}</SelectItem>
+                                    <SelectItem key={index}  value={v.name.toLowerCase()}>{v.name}</SelectItem>
                                 ))
                             }
                         </SelectGroup>

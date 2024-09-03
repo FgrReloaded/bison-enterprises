@@ -18,7 +18,7 @@ export default async function AdminPage() {
                         </svg>
                     </div>
                     <div className="p-4 text-right">
-                        <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today's Money</p>
+                        <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today&apos;s Money</p>
                         <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">$53k</h4>
                     </div>
                     <div className="border-t border-blue-gray-50 p-4">
@@ -34,7 +34,7 @@ export default async function AdminPage() {
                         </svg>
                     </div>
                     <div className="p-4 text-right">
-                        <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today's Users</p>
+                        <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Today&apos;s Users</p>
                         <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">2,300</h4>
                     </div>
                     <div className="border-t border-blue-gray-50 p-4">

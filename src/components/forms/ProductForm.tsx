@@ -104,7 +104,7 @@ const ProductForm = () => {
         form.setValue('inStock', data?.inStock);
         form.setValue('images', data?.images);
 
-    }, [data]);
+    }, [data, form]);
 
     const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
         const price = e.target.value;

@@ -321,7 +321,7 @@ const Review = () => {
                                 </defs>
                             </svg>
                         </div>
-                        <h3 className="font-manrope font-semibold text-xl sm:text-2xl leading-9 text-black mb-6">Pagedone's design system seamlessly bridges the gap between designers and developers!
+                        <h3 className="font-manrope font-semibold text-xl sm:text-2xl leading-9 text-black mb-6">Pagedone&apos;s design system seamlessly bridges the gap between designers and developers!
                         </h3>
                         <div className="flex sm:items-center flex-col min-[400px]:flex-row justify-between gap-5 mb-4">
                             <div className="flex items-center gap-3 relative">
@@ -330,7 +330,7 @@ const Review = () => {
                             </div>
                             <p className="font-normal text-lg leading-8 text-gray-400">Nov 01, 2023</p>
                         </div>
-                        <p className="font-normal text-lg leading-8 text-gray-400 max-xl:text-justify">Pagedone doesn't disappoint when it comes to the variety and richness of its design components. From pre-built templates to customizable elements, the system caters to both beginners and seasoned designers. The extensive library ensures a diverse range of options to bring creative visions to life.</p>
+                        <p className="font-normal text-lg leading-8 text-gray-400 max-xl:text-justify">Pagedone doesn&apos;t disappoint when it comes to the variety and richness of its design components. From pre-built templates to customizable elements, the system caters to both beginners and seasoned designers. The extensive library ensures a diverse range of options to bring creative visions to life.</p>
                     </div>
                 </div>
             </div>

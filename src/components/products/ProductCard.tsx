@@ -32,7 +32,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
                     </h6>
                     <h6 className="font-semibold text-base leading-7 text-indigo-600 text-right">₹{product?.price}</h6>
                 </div>
-                <p className="text-xs leading-5 text-gray-500">Women's Winter Wear</p>
+                <p className="text-xs leading-5 text-gray-500">Women&apos;s Winter Wear</p>
             </Link>
         </div>
     )
