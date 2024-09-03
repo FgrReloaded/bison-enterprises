@@ -279,7 +279,7 @@ const ProductForm = () => {
                     }
                 </div>
                 <DialogFooter className='py-4'>
-                    <CldUploadWidget options={{maxFiles: 6}} onClose={showUploadedImages} onSuccess={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
+                    <CldUploadWidget options={{ maxFiles: 6 }} onClose={showUploadedImages} onSuccess={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
                         {({ open }) => {
                             return (
                                 <Button disabled={uploadedImages?.length >= 6} type='button' onClick={() => { open() }} className='mr-auto'>

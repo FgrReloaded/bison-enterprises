@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
+import { CldImage } from 'next-cloudinary'
+import Link from 'next/link'
 
 interface LayoutAndContent {
     style: React.CSSProperties,
@@ -8,14 +10,17 @@ interface LayoutAndContent {
 }
 
 const BillBoard = ({ style, content }: LayoutAndContent) => {
-
     return (
-        <div className='bg-gray-400 rounded-xl w-full h-full relative' style={style}>
-            <Image src={content.src} layout="fill" objectFit="cover" className='rounded-xl' alt='billboard' />
+        <div className='bg-gray-400 rounded-xl w-full h-full relative overflow-hidden' style={style}>
+            <CldImage key={content.src} src={content.src} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={content.title} />
             <div className='absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 flex flex-col gap-2' style={content.style}>
                 <h1 className='text-2xl font-bold'>{content.data.title}</h1>
                 <p>{content.data.tagline}</p>
-                <Button className='mt-6' variant={'secondary'}>Shop Now</Button>
+                <Button asChild className='mt-6' variant={'secondary'}>
+                    <Link href={`${content.data.link}`}  target='_blank'>
+                        Shop Now
+                    </Link>
+                </Button>
             </div>
         </div>
     )

@@ -27,16 +27,18 @@ export default function BillBoardPage() {
 
 
   return (
-    <div className="flex flex-col justify-center w-full h-full">
+    <div className="flex flex-col justify-center w-full h-full gap-4">
       <h1 className="text-3xl font-bold">Billboards</h1>
-      <AddBillBoard />
+      {
+        billboards.length !==4 && <AddBillBoard />
+      }
       {billboards.length === 0 && <div className="flex flex-col justify-center w-full h-full items-center mt-20"><p>No billboards found</p></div>}
 
       {
         billboards &&
         billboards.map((billboard) => {
           return (
-            <div key={billboard.id} className="flex justify-between px-4 items-center py-2 shadow-lg rounded-lg">
+            <div key={billboard.id} className="flex justify-between px-4 items-center py-2 shadow-lg rounded-lg my-2">
               <div className="w-32 h-32 relative">
                 <CldImage key={billboard.id} src={billboard.image} fill style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "1rem" }} alt={billboard.title} />
               </div>

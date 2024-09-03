@@ -3,6 +3,8 @@
 import React, { useState } from 'react'
 import BillBoard from './BillBoard'
 import { gridLayout } from '@/lib/constant'
+import { useQuery } from '@tanstack/react-query'
+import { getBillboards } from '@/actions/admin/billboards'
 
 interface Props {
     allowedChildren: number
@@ -10,13 +12,28 @@ interface Props {
 }
 
 const BillBoards = ({ allowedChildren, styleType }: Props) => {
+    const { data: billboards, isLoading } = useQuery({
+        queryKey: ['billboards'],
+        queryFn: () => getBillboards(),
+        initialData: []
+    })
+
+    if (isLoading) {
+        return (
+            <div className="flex flex-col justify-center w-full h-full">
+                <h1 className="text-3xl font-bold">Billboards</h1>
+                <p>Loading...</p>
+            </div>
+        )
+    }
 
     const content = [ // WIP
         {
-            src: '/assets/dev/slide01.jpeg',
+            src: billboards[0]?.image,
             data: {
-                title: 'Sony 5G Headphone',
-                tagline: 'Only Music. Nothing Else.',
+                title: billboards[0]?.title,
+                tagline: billboards[0]?.tagline,
+                link: billboards[0]?.link
             },
             style: {
                 left: '2rem',
@@ -25,10 +42,11 @@ const BillBoards = ({ allowedChildren, styleType }: Props) => {
             }
         },
         {
-            src: '/assets/dev/Banner-2.jpeg',
+            src: billboards[1]?.image,
             data: {
-                title: 'Air Mavic 3',
-                tagline: 'As powerful as it is portable',
+                title: billboards[1]?.title,
+                tagline: billboards[1]?.tagline,
+                link: billboards[1]?.link
             },
             style: {
                 top: '2rem',
@@ -38,10 +56,11 @@ const BillBoards = ({ allowedChildren, styleType }: Props) => {
             }
         },
         {
-            src: '/assets/dev/Banner-4.jpeg',
+            src: billboards[2]?.image,
             data: {
-                title: 'Handheld',
-                tagline: 'USB 3 Rechargeable',
+                title: billboards[2]?.title,
+                tagline: billboards[2]?.tagline,
+                link: billboards[2]?.link
             },
             style: {
                 left: '2rem',
@@ -50,10 +69,11 @@ const BillBoards = ({ allowedChildren, styleType }: Props) => {
             }
         },
         {
-            src: '/assets/dev/Banner-4.jpeg',
+            src: billboards[3]?.image,
             data: {
-                title: 'Gearbox',
-                tagline: 'Upto 30% Discount',
+                title: billboards[3]?.title,
+                tagline: billboards[3]?.tagline,
+                link: billboards[3]?.link
             },
             style: {
                 left: '2rem',
