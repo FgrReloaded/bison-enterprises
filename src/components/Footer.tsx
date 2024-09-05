@@ -21,8 +21,7 @@ const Footer = () => {
                                 <h2 className="text-2xl font-bold text-gray-900">Get the latest product alerts!</h2>
 
                                 <p className="mt-4 text-gray-500">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non cupiditate quae nam
-                                    molestias.
+                                   Subscribe to our newsletter to get the latest updates on our products and services.
                                 </p>
                             </div>
                         </div>
@@ -37,47 +36,43 @@ const Footer = () => {
                                     <input
                                         type="email"
                                         id="UserEmail"
-                                        placeholder="john@rhcp.com"
+                                        placeholder="yourmail@gmail.com"
                                         className="w-full border-none focus:border-transparent focus:ring-transparent sm:text-sm"
                                     />
 
                                     <button
                                         className="mt-1 w-full bg-teal-500 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0"
                                     >
-                                        Sign Up
+                                        Subscribe
                                     </button>
                                 </div>
                             </form>
                         </div>
 
                         <div className="col-span-2 sm:col-span-1">
-                            <p className="font-medium text-gray-900">Services</p>
+                            <p className="font-medium text-gray-900">Links</p>
 
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> 1on1 Coaching </a>
+                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Home </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Company Review </a>
+                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Products </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
+                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Orders </a>
                                 </li>
 
                                 <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> HR Consulting </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> SEO Optimisation </a>
+                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Account </a>
                                 </li>
                             </ul>
                         </div>
 
                         <div className="col-span-2 sm:col-span-1">
-                            <p className="font-medium text-gray-900">Company</p>
+                            <p className="font-medium text-gray-900">Store</p>
 
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
@@ -86,10 +81,6 @@ const Footer = () => {
 
                                 <li>
                                     <a href="#" className="text-gray-700 transition hover:opacity-75"> Meet the Team </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
                                 </li>
                             </ul>
                         </div>
@@ -105,10 +96,6 @@ const Footer = () => {
                                 <li>
                                     <a href="#" className="text-gray-700 transition hover:opacity-75"> FAQs </a>
                                 </li>
-
-                                <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Live Chat </a>
-                                </li>
                             </ul>
                         </div>
 
@@ -117,10 +104,6 @@ const Footer = () => {
 
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Accessibility </a>
-                                </li>
-
-                                <li>
                                     <a href="#" className="text-gray-700 transition hover:opacity-75"> Returns Policy </a>
                                 </li>
 
@@ -128,26 +111,8 @@ const Footer = () => {
                                     <a href="#" className="text-gray-700 transition hover:opacity-75"> Refund Policy </a>
                                 </li>
 
-                                <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Hiring Statistics </a>
-                                </li>
                             </ul>
                         </div>
-
-                        <div className="col-span-2 sm:col-span-1">
-                            <p className="font-medium text-gray-900">Downloads</p>
-
-                            <ul className="mt-6 space-y-4 text-sm">
-                                <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> Marketing Calendar </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" className="text-gray-700 transition hover:opacity-75"> SEO Infographics </a>
-                                </li>
-                            </ul>
-                        </div>
-
                         <ul className="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
                             <li>
                                 <a
@@ -194,7 +159,7 @@ const Footer = () => {
 
                 <div className="mt-8 border-t border-gray-100 pt-8">
                     <div className="sm:flex sm:justify-between">
-                        <p className="text-xs text-gray-500">&copy; 2022. Online Store. All rights reserved.</p>
+                        <p className="text-xs text-gray-500">&copy; 2024. Online Store. All rights reserved.</p>
 
                         <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
                             <li>
@@ -203,10 +168,6 @@ const Footer = () => {
 
                             <li>
                                 <a href="#" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </a>
-                            </li>
-
-                            <li>
-                                <a href="#" className="text-gray-500 transition hover:opacity-75"> Cookies </a>
                             </li>
                         </ul>
                     </div>

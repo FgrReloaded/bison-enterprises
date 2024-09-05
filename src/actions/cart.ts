@@ -25,9 +25,6 @@ export async function addToCart({ productId, quantity, variant }: { productId: s
                         },
                     },
                 },
-                select: {
-
-                }
             })
         } else {
             newCart = db.cartItem.create({

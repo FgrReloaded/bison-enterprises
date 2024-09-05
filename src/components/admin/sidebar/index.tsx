@@ -2,7 +2,7 @@ import React from 'react'
 import { Separator } from '@/components/ui/separator';
 import NavigationItem from './NavigationItem';
 import NavigationHome from './NavigationHome';
-import { LayoutDashboard, CalendarDays, StretchHorizontal, UserMinus, CircuitBoardIcon } from 'lucide-react';
+import { LayoutDashboard, CalendarDays, StretchHorizontal, CircuitBoardIcon, UsersRound, UserMinus, TicketSlash } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react'
 
 
@@ -31,6 +31,18 @@ const NavigationSidebar = () => {
             name: "Billboards",
             route: "/admin/billboards",
             icon: <CircuitBoardIcon size={22} />
+
+        },
+        {
+            name: "Banners",
+            route: "/admin/banners",
+            icon: <TicketSlash size={22} />
+
+        },
+        {
+            name: "Users",
+            route: "/admin/users",
+            icon: <UsersRound size={22} />
 
         },
     ]

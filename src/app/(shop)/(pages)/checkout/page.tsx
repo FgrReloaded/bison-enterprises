@@ -10,7 +10,7 @@ import { RootState } from "@/lib/store";
 import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { setCart } from "@/lib/slices/cartSlice";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 
 export default function CheckOut() {
@@ -19,6 +19,7 @@ export default function CheckOut() {
     const queryClient = useQueryClient();
     const router = useRouter();
     const userData = useSelector((state: RootState) => state.userProfile);
+    const [isValid, setIsValid] = useState<boolean>(false);
 
 
     const totalPrice = useMemo(() => {
@@ -160,12 +161,15 @@ export default function CheckOut() {
                                 <h2 className="font-manrope font-bold text-xl leading-8 text-gray-600">3 Items</h2>
                             </div>
                             <Cart data={data} />
-                            <ContactForm />
+                            <ContactForm setIsValid={setIsValid} />
                         </div>
                         <div
                             className=" col-span-12 xl:col-span-4 bg-gray-50 w-full max-xl:px-6 max-w-3xl xl:max-w-lg mx-auto lg:pl-8 py-24">
-                            <h2 className="font-manrope font-bold text-3xl leading-10 text-black pb-8 border-b border-gray-300">
+                            <h2 className="font-manrope font-bold text-3xl leading-10 text-black">
                                 Order Summary</h2>
+                            <p className="pb-6 border-b border-gray-300">
+                                Fill the contact details below
+                            </p>
                             <div className="mt-8">
                                 <div className="flex items-center justify-between pb-6">
                                     <p className="font-normal text-lg leading-8 text-black">Subtotal:</p>
@@ -184,7 +188,7 @@ export default function CheckOut() {
                                         <p className="font-medium text-xl leading-8 text-black">Total:</p>
                                         <p className="font-semibold text-xl leading-8 text-indigo-600">₹ {totalPrice * 0.18 + totalPrice + 50}</p>
                                     </div>
-                                    <Button onClick={makePayment} className="w-full py-6 text-lg">Checkout</Button>
+                                    <Button disabled={!isValid} onClick={makePayment} className="w-full py-6 text-lg">Checkout</Button>
                                 </div>
                             </div>
                         </div>

@@ -12,13 +12,6 @@ interface Admin{
 
 export const createSuperUser = async ({name, email, password}:Admin) => {
     try {
-        const isAdminExists = await adminExists();
-
-        if (isAdminExists) {
-            console.log('Superuser already exists');
-            return false;
-        }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await db.admin.create({

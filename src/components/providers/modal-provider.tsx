@@ -5,6 +5,8 @@ import CreateProductModal from "../modals/CreateProduct";
 import ProductReview from "../modals/ProductReview";
 import DeleteProductModal from "../modals/DeleteModal";
 import NewBillBoard from "../modals/NewBillBoard";
+import NewAdmin from "../modals/NewAdmin";
+import NewBanner from "../modals/NewBanner";
 
 
 const ModalProvider = () => {
@@ -22,6 +24,8 @@ const ModalProvider = () => {
             <DeleteProductModal />
             <ProductReview />
             <CreateProductModal />
+            <NewAdmin />
+            <NewBanner />
         </div>
     )
 }

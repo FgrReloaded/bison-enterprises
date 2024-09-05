@@ -39,7 +39,7 @@ const CheckoutDetailsSchema = z.object({
 })
 
 
-const ContactForm = () => {
+const ContactForm = ({setIsValid}: {setIsValid: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
     const user = useSelector((state: any) => state.userProfile);
@@ -63,9 +63,11 @@ const ContactForm = () => {
             setIsLoading(true);
             await updateAddress(values)
             toast.success('Details updated')
+            setIsValid(true);
         } catch (error) {
             console.error(error);
             toast.error('Failed to update account');
+            setIsValid(false);
         } finally {
             setIsLoading(false);
         }
@@ -89,6 +91,10 @@ const ContactForm = () => {
             address: user?.address ?? '',
             pincode: user?.pincode ?? '',
         });
+
+        const isFilled = Object.values(form.getValues()).every(Boolean);
+        setIsValid(isFilled);
+
     }, [user, form, dispatch])
 
     return (
