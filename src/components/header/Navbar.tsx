@@ -16,6 +16,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openSidebar } from '@/lib/slices/sidebarSlice';
 import { RootState } from '@/lib/store'
+import { openModal } from '@/lib/slices/modalSlice'
 
 const Navbar = () => {
     const { data: session, status } = useSession();
@@ -31,7 +32,7 @@ const Navbar = () => {
                 <p className="text-xl font-bold">STORE</p>
             </aside>
             <nav className="relative">
-                <Input className='focus-visible:ring-0 focus-visible:ring-offset-0 border-2 rounded-xl md:w-[30vw] p-6 text-lg' placeholder="Search Products" />
+                <Input onClick={()=>{dispatch(openModal({type: "searchProducts"}))}} className='focus-visible:ring-0 focus-visible:ring-offset-0 border-2 rounded-xl md:w-[30vw] p-6 text-lg' placeholder="Search Products" />
                 <span className='absolute border-1 border-gray-400 rounded-full p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer'>
                     <Search size={20} />
                 </span>

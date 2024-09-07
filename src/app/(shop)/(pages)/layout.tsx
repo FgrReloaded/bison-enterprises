@@ -4,6 +4,7 @@ import { getCart } from "@/actions/cart";
 import Footer from "@/components/Footer";
 import Nav from "@/components/header/Nav";
 import Navbar from "@/components/header/Navbar";
+import ModalProvider from "@/components/providers/modal-provider";
 import SideBar from "@/components/sidebar";
 import { adminExists } from "@/lib/check-if-admin";
 import { getProfile } from "@/lib/manage-account";
@@ -52,6 +53,7 @@ export default function PagesLayout({
             <Nav />
             <SideBar />
             {children}
+            <ModalProvider />
             <Footer />
         </SessionProvider>
     );

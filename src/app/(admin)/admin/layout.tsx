@@ -19,7 +19,6 @@ export default function AdminPageLayout({
                     <Header />
                     <div className="mt-12">
                         {children}
-                        <ModalProvider />
                     </div>
                 </div>
             </div>

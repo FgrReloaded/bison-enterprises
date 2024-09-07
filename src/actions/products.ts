@@ -52,3 +52,19 @@ export const getFeaturedProducts = async () => {
         return [];
     }
 }
+
+export const searchProducts = async (query: string) => {
+    try {
+        const products = await db.product.findMany({
+            where: {
+                name: {
+                    contains: query
+                }
+            }
+        });
+        return products;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}

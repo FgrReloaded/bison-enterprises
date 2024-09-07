@@ -7,6 +7,7 @@ import DeleteProductModal from "../modals/DeleteModal";
 import NewBillBoard from "../modals/NewBillBoard";
 import NewAdmin from "../modals/NewAdmin";
 import NewBanner from "../modals/NewBanner";
+import SearchBar from "../modals/SearchBar";
 
 
 const ModalProvider = () => {
@@ -26,6 +27,7 @@ const ModalProvider = () => {
             <CreateProductModal />
             <NewAdmin />
             <NewBanner />
+            <SearchBar />
         </div>
     )
 }
