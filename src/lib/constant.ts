@@ -33,6 +33,13 @@ export const gridLayout = {
     }
 }
 
+export const gridNames = [
+    "row-span-2 md:col-span-1",
+    "row-span-2 md:col-start-2 md:col-end-3",
+    "md:col-start-3 md:row-start-1",
+    "md:col-start-3 md:row-start-2"
+]
+
 export const states = [
         "Andhra Pradesh",
         "Arunachal Pradesh",

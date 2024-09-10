@@ -43,8 +43,8 @@ export default function BannersPage() {
                 banners &&
                 banners.map((banner: any) => {
                     return (
-                        <div key={banner.id} className="flex justify-between px-4 items-center py-2 shadow-lg rounded-lg my-2">
-                            <div className="w-32 h-32 relative">
+                        <div key={banner.id} className="flex justify-between md:flex-row flex-col md:gap-0 gap-4 text-center px-4 items-center py-2 shadow-lg rounded-lg my-2">
+                            <div className="md:w-32 md:h-32 w-64 h-64 relative">
                                 <CldImage key={banner.id} src={banner.image} fill style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "1rem" }} alt={banner.title} />
                             </div>
                             <div className="flex flex-col gap-2">

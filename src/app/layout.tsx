@@ -6,6 +6,7 @@ import QueryProvider from "@/components/providers/query-provider";
 import { Suspense } from "react";
 import LoadingPage from "./loading";
 import StoreProvider from "@/components/providers/StoreProvider";
+import ModalProvider from "@/components/providers/modal-provider";
 
 
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <StoreProvider>
             <QueryProvider>
               {children}
+              <ModalProvider />
               <Toaster />
             </QueryProvider>
           </StoreProvider>

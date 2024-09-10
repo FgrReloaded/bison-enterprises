@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator"
 import { useDispatch, useSelector } from "react-redux"
 import { openModal } from "@/lib/slices/modalSlice"
 import { useQuery } from "@tanstack/react-query"
-import { getAdminUsers } from "@/actions/admin/user"
+import { getAdminUsers, getCustomers } from "@/actions/admin/user"
 import { useSession } from "next-auth/react"
 
 export default function UserPage() {
@@ -22,7 +22,13 @@ export default function UserPage() {
         queryFn: () => getAdminUsers(),
         initialData: [],
     });
-    
+
+    const { data: customers } = useQuery({
+        queryKey: ['customer-users'],
+        queryFn: () => getCustomers(),
+        initialData: [],
+    });
+
     return (
         <div className="flex flex-col px-2">
             <h1 className="text-4xl font-bold uppercase my-6">Users</h1>
@@ -43,7 +49,7 @@ export default function UserPage() {
                             {
                                 Array.isArray(admins) && admins.map((admin, idx) => (
                                     <div key={idx} className="flex justify-between items-center px-4 py-2 shadow-lg rounded-lg my-2 gap-4 w-full ">
-                                        <div className="flex gap-4 items-center">
+                                        <div className="flex gap-4 md:items-center md:flex-row flex-col">
                                             <p className="text-lg font-bold">
                                                 {admin.name}
                                             </p>
@@ -69,8 +75,31 @@ export default function UserPage() {
                 <AccordionItem value="item-2">
                     <AccordionTrigger>Customers</AccordionTrigger>
                     <AccordionContent>
-                        Yes. It comes with default styles that matches the other
-                        components&apos; aesthetic.
+                        <div className="flex flex-col items-center gap-2 p-2 py-4">
+                            {
+                                Array.isArray(customers) && customers.map((customer, idx) => (
+                                    <div key={idx} className="flex justify-between items-center px-4 py-2 shadow-lg rounded-lg my-2 gap-4 w-full ">
+                                        <div className="flex gap-4 md:items-center md:flex-row flex-col">
+                                            <p className="text-lg font-bold">
+                                                {customer.name}
+                                            </p>
+                                            <p className="text-sm">
+                                                {customer.email}
+                                            </p>
+                                        </div>
+                                        <div className="flex gap-4 items-center pr-4">
+                                            <button className="cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button className="cursor-pointer">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+
+                        </div>
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>

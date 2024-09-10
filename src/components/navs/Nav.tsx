@@ -8,7 +8,7 @@ import React from 'react'
 const Nav = () => {
     const pathname = usePathname()
     return (
-        <header className="py-4 px-4 flex items-center justify-between bg-gray-400">
+        <header className="py-4 px-4 md:flex hidden items-center justify-between bg-gray-400">
             <aside className="flex items-center gap-[2px]">
                 <nav>
                     <ul className='flex gap-8 items-center ml-5 tracking-wider'>

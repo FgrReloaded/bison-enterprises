@@ -26,7 +26,7 @@ export function Cart({ data }: CartProps) {
                     </div>
                 </div>
             </div>
-            <ScrollArea className="h-[75vh] w-full px-4">
+            <ScrollArea className="h-[75vh] w-full md:px-4 px-2">
                 <div>
                     {data?.items.length > 0 && data?.items.map((item: any, index: number) => {
                         const matchingVariant: any = item.product.variants.find((variant: any) =>
@@ -41,7 +41,7 @@ export function Cart({ data }: CartProps) {
                                 <div className="w-full md:max-w-[126px] relative h-32">
                                     <CldImage key={item?.id} src={item.product.images[0]} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={item.product.name} />
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-4 w-full">
+                                <div className="grid grid-cols-3 md:grid-cols-4 w-full">
                                     <div className="md:col-span-2">
                                         <div className="flex flex-col max-[500px]:items-center gap-3">
                                             <h6 className="font-semibold text-base leading-7 text-black">{item.product.name}</h6>
@@ -57,39 +57,12 @@ export function Cart({ data }: CartProps) {
                                     </div>
                                     <div className="flex items-center max-[500px]:justify-center h-full max-md:mt-3">
                                         <div className="flex items-center h-full">
-                                            <button
-                                                className="group rounded-l-xl px-5 py-[8px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:bg-gray-50 hover:border-gray-300 hover:shadow-gray-300 focus-within:outline-gray-300">
-                                                <svg className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
-                                                    xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                                    viewBox="0 0 22 22" fill="none">
-                                                    <path d="M16.5 11H5.5" stroke="" strokeWidth="1.6"
-                                                        strokeLinecap="round" />
-                                                    <path d="M16.5 11H5.5" stroke="" strokeOpacity="0.2" strokeWidth="1.6"
-                                                        strokeLinecap="round" />
-                                                    <path d="M16.5 11H5.5" stroke="" strokeOpacity="0.2" strokeWidth="1.6"
-                                                        strokeLinecap="round" />
-                                                </svg>
-                                            </button>
-                                            <Input type="text"
-                                                className="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[73px] min-w-[60px] placeholder:text-gray-900 py-[15px]  text-center bg-transparent"
-                                                placeholder="1" value={item?.quantity} />
-                                            <button
-                                                className="group rounded-r-xl px-5 py-[8px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:bg-gray-50 hover:border-gray-300 hover:shadow-gray-300 focus-within:outline-gray-300">
-                                                <svg className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
-                                                    xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                                    viewBox="0 0 22 22" fill="none">
-                                                    <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" strokeWidth="1.6"
-                                                        strokeLinecap="round" />
-                                                    <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" strokeOpacity="0.2"
-                                                        strokeWidth="1.6" strokeLinecap="round" />
-                                                    <path d="M11 5.5V16.5M16.5 11H5.5" stroke="" strokeOpacity="0.2"
-                                                        strokeWidth="1.6" strokeLinecap="round" />
-                                                </svg>
-                                            </button>
+                                            <div className="ml-16 outline-none text-gray-900 font-semibold text-lg w-full max-w-[73px] min-w-[60px] py-[15px]  text-center bg-transparent">{item?.quantity}</div>
+
                                         </div>
                                     </div>
                                     <div className="flex items-center max-[500px]:justify-center md:justify-end max-md:mt-3 h-full">
-                                        <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-indigo-600">₹ {price*item?.quantity}</p>
+                                        <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-indigo-600">₹ {price * item?.quantity}</p>
                                     </div>
                                 </div>
                             </div>

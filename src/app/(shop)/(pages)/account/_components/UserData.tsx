@@ -1,5 +1,7 @@
 "use client"
-import { ShoppingCart, User2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ShoppingCart, User2, UserMinus } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { useSelector } from "react-redux";
 
 export default function UserData() {
@@ -35,7 +37,9 @@ export default function UserData() {
                     </svg>
                     <h5 className="text-black text-base font-normal leading-6 ml-5">789 Oak Lane, Lakeside, TX 54321</h5>
                 </span>
-
+                <Button onClick={()=>{signOut({redirect: true})}} className="flex gap-4 mx-auto">
+                    <span>LogOut</span> <UserMinus size={20} />
+                </Button>
             </div>
         </div>
     )

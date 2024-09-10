@@ -42,11 +42,6 @@ const NewBillBoard = () => {
     //     }
     // });
 
-    const handleProductDeletion = () => {
-        setIsLoading(true);
-    }
-
-
     return (
         <Dialog open={isModalOpen} onOpenChange={() => { dispatch(closeModal()) }}>
             <DialogContent>
@@ -56,7 +51,7 @@ const NewBillBoard = () => {
                         Create a new billboard
                     </DialogDescription>
                 </DialogHeader>
-                <BillBoardForm  />
+                <BillBoardForm />
             </DialogContent>
         </Dialog >
     )

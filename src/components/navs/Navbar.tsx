@@ -25,7 +25,7 @@ const Navbar = () => {
     const totalItems = data.items.length;
 
     return (
-        <header className="py-4 px-4 flex items-center justify-between">
+        <header className="py-4 px-4 flex items-center justify-between md:flex-row flex-col md:gap-0 gap-4">
             <aside className="flex items-center gap-[2px]">
                 <p className="text-xl font-bold ">ONLINE</p>
                 <ShoppingCart size={20} />
@@ -38,13 +38,13 @@ const Navbar = () => {
                 </span>
             </nav>
             <aside className="flex items-center gap-4 px-2">
-                <div className='flex items-center gap-x-4 border-1 border-gray-400 rounded-full py-1 px-6'>
+                <div className='flex items-center gap-x-4 border-1 border-gray-400 rounded-full py-1 px-6 '>
                     <span>
                         <Headset size={25} />
                     </span>
                     <div className='flex flex-col'>
-                        <span className='text-md'>Need help? Call us:</span>
-                        <span className='text-md tracking-wider'>+91 1234567890</span>
+                        <span className='md:text-md text-sm'>Need help? Call us:</span>
+                        <span className='md:text-md text-sm tracking-wider'>+91 1234567890</span>
                     </div>
                 </div>
                 {session && session.user.role !== "ADMIN" &&
@@ -69,7 +69,7 @@ const Navbar = () => {
                 }
                 {
                     status === 'authenticated' && session.user.id && session.user.role !== "ADMIN" &&
-                    <Menubar className='border-none'>
+                    <Menubar className='border-none md:flex hidden'>
                         <MenubarMenu>
                             <MenubarTrigger asChild>
                                 <Button className='rounded-full gap-2 cursor-pointer' variant={"outline"}>

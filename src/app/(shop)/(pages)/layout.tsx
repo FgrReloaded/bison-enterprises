@@ -2,9 +2,9 @@
 
 import { getCart } from "@/actions/cart";
 import Footer from "@/components/Footer";
-import Nav from "@/components/header/Nav";
-import Navbar from "@/components/header/Navbar";
-import ModalProvider from "@/components/providers/modal-provider";
+import MobileNav from "@/components/navs/MobileNav";
+import Nav from "@/components/navs/Nav";
+import Navbar from "@/components/navs/Navbar";
 import SideBar from "@/components/sidebar";
 import { adminExists } from "@/lib/check-if-admin";
 import { getProfile } from "@/lib/manage-account";
@@ -51,9 +51,9 @@ export default function PagesLayout({
         <SessionProvider>
             <Navbar />
             <Nav />
+            <MobileNav />
             <SideBar />
             {children}
-            <ModalProvider />
             <Footer />
         </SessionProvider>
     );

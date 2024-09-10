@@ -21,7 +21,7 @@ const Footer = () => {
                                 <h2 className="text-2xl font-bold text-gray-900">Get the latest product alerts!</h2>
 
                                 <p className="mt-4 text-gray-500">
-                                   Subscribe to our newsletter to get the latest updates on our products and services.
+                                    Subscribe to our newsletter to get the latest updates on our products and services.
                                 </p>
                             </div>
                         </div>
@@ -29,7 +29,6 @@ const Footer = () => {
                         <div className="col-span-2 lg:col-span-3 lg:flex lg:items-end">
                             <form className="w-full">
                                 <label htmlFor="UserEmail" className="sr-only"> Email </label>
-
                                 <div
                                     className="border border-gray-100 p-2 focus-within:ring sm:flex sm:items-center sm:gap-4"
                                 >
@@ -49,8 +48,8 @@ const Footer = () => {
                             </form>
                         </div>
 
-                        <div className="col-span-2 sm:col-span-1">
-                            <p className="font-medium text-gray-900">Links</p>
+                        <div className="col-span-2 sm:col-span-1 mx-auto text-center">
+                            <p className="font-medium text-gray-900">Navigation</p>
 
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
@@ -71,7 +70,7 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        <div className="col-span-2 sm:col-span-1">
+                        <div className="col-span-2 sm:col-span-1 mx-auto text-center">
                             <p className="font-medium text-gray-900">Store</p>
 
                             <ul className="mt-6 space-y-4 text-sm">
@@ -85,7 +84,7 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        <div className="col-span-2 sm:col-span-1">
+                        <div className="col-span-2 sm:col-span-1 mx-auto text-center">
                             <p className="font-medium text-gray-900">Helpful Links</p>
 
                             <ul className="mt-6 space-y-4 text-sm">
@@ -99,7 +98,7 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        <div className="col-span-2 sm:col-span-1">
+                        <div className="col-span-2 sm:col-span-1 mx-auto text-center">
                             <p className="font-medium text-gray-900">Legal</p>
 
                             <ul className="mt-6 space-y-4 text-sm">
@@ -113,7 +112,7 @@ const Footer = () => {
 
                             </ul>
                         </div>
-                        <ul className="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
+                        <ul className="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end mx-auto">
                             <li>
                                 <a
                                     href="#"
@@ -157,11 +156,11 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="mt-8 border-t border-gray-100 pt-8">
+                <div className="mt-8 border-t border-gray-100 pt-8 text-center">
                     <div className="sm:flex sm:justify-between">
                         <p className="text-xs text-gray-500">&copy; 2024. Online Store. All rights reserved.</p>
 
-                        <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
+                        <ul className="mt-8 flex flex-wrap justify-center gap-4 text-xs sm:mt-0 lg:justify-end">
                             <li>
                                 <a href="#" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
                             </li>

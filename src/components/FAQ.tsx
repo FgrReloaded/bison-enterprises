@@ -9,8 +9,8 @@ import React from 'react'
 
 export const FAQ = () => {
   return (
-    <div className="w-4/5 mx-auto flex justify-between items-center  gap-12 px-4 py-6">
-      <Accordion type="multiple" className="w-1/2 bg-white px-4">
+    <div className="md:w-4/5 w-full mx-auto flex md:flex-row flex-col justify-between items-center gap-6 md:gap-12 px-4 py-6">
+      <Accordion type="multiple" className="md:w-1/2 w-full bg-white px-4">
         <AccordionItem value="item-1">
           <AccordionTrigger>Is it accessible?</AccordionTrigger>
           <AccordionContent>
@@ -36,7 +36,7 @@ export const FAQ = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <Accordion type="multiple" className="w-1/2 bg-white px-4">
+      <Accordion type="multiple" className="md:w-1/2 w-full bg-white px-4">
         <AccordionItem value="item-1">
           <AccordionTrigger>Is it accessible?</AccordionTrigger>
           <AccordionContent>

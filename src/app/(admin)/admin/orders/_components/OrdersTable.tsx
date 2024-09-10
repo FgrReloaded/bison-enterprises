@@ -24,7 +24,7 @@ const OrdersTable = () => {
         return (
             <div className='w-full flex items-center justify-center flex-col gap-6 mt-6 mx-auto'>
                 <SquareDashedKanban size={48} className='text-gray-500 dark:text-gray-400' />
-                <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold'>No Orders found</span>
+                <span className='text-gray-500 dark:text-gray-400 uppercase text-4xl font-extrabold text-center'>No Orders found</span>
             </div>
         )
     }

@@ -1,13 +1,20 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Heading } from "./_components/Heading";
 import { getOrders } from "@/actions/orders";
 import React from "react";
 import { CldImage } from "next-cloudinary";
+import { useQuery } from "@tanstack/react-query";
 
 
-export default async function Order() {
+export default function Order() {
+    const { data: orders, isLoading } = useQuery({
+        queryKey: ['orders'],
+        queryFn: ()=>getOrders(),
+        initialData: [],
+    })
 
-    const orders = await getOrders();
+    if (isLoading) return <p>Loading...</p>
 
     return (
         <section>
@@ -49,7 +56,7 @@ export default async function Order() {
                                                     return (
                                                         <li key={item.id} className="flex sm:items-start sm:justify-between ">
                                                             <div className="flex items-stretch flex-1">
-                                                                <div className="flex-shrink-0 w-28 h-28 rounded-md ">
+                                                                <div className="flex-shrink-0 w-28 h-28 rounded-md relative">
                                                                     <CldImage key={item?.id} src={item.product.images[0]} fill style={{ objectFit: "cover", width: "100%", height: "100%" }} alt={item.product.name} />
                                                                 </div>
 
@@ -74,8 +81,8 @@ export default async function Order() {
                                                                                 Object.keys(item.variant || {}).every(key =>
                                                                                     variant.variant[key] && variant.variant[key].includes(item.variant?.[key])
                                                                                 )
-                                                                            )?.details?.price || item?.product?.price)*item.quantity
-                                                                            }</span>
+                                                                            )?.details?.price || item?.product?.price) * item.quantity
+                                                                        }</span>
                                                                     </p>
                                                                 </div>
                                                             </div>

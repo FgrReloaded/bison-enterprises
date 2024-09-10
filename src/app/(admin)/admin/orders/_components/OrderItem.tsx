@@ -1,5 +1,5 @@
 "use client"
-import { deleteOrder } from '@/actions/admin/orders'
+import { deleteOrder, updateOrderStatus } from '@/actions/admin/orders'
 import ActionTooltip from '@/components/modals/ActionTooltip'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Order, OrderStatus } from '@prisma/client'
@@ -13,7 +13,7 @@ const ORDER_STATUS: OrderStatus[] = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVE
 
 const OrderItem = ({ order }: { order: Order }) => {
     const queryClient = useQueryClient();
-    const { mutate } = useMutation({
+    const { mutate: handleDelete } = useMutation({
         mutationFn: deleteOrder,
         onSuccess: () => {
             queryClient.setQueryData(['all-orders'], (oldData: any) => {
@@ -30,9 +30,34 @@ const OrderItem = ({ order }: { order: Order }) => {
             toast.error('Failed to delete product product');
         }
     });
+
+    const { mutate: updateStatus } = useMutation({
+        mutationFn: updateOrderStatus,
+        onSuccess: () => {
+            queryClient.setQueryData(['all-orders'], (oldData: any) => {
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ['all-orders']
+            });
+            toast.success('Order updated successfully');
+        },
+        onError: (error) => {
+            console.error(error);
+            toast.error('Failed to delete product product');
+        }
+    });
+
+
     const handleDeleteOrder = async (id: string) => {
-        mutate(id)
+        handleDelete(id)
     }
+
+    const handleChange = (status: OrderStatus) => {
+        updateStatus({id: order.id, status})
+    }
+
+
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <td className="relative w-20 h-20">
@@ -50,7 +75,7 @@ const OrderItem = ({ order }: { order: Order }) => {
                 }
             </td>
             <td className="px-6 py-4">
-                <Select defaultValue={order?.status}>
+                <Select defaultValue={order?.status} onValueChange={handleChange}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue />
                     </SelectTrigger>

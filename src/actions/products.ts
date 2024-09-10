@@ -46,6 +46,7 @@ export const getFeaturedProducts = async () => {
                 isFeatured: true
             }
         });
+        
         return products;
     } catch (error) {
         console.log(error);

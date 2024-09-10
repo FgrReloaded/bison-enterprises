@@ -100,7 +100,7 @@ const ContactForm = ({setIsValid}: {setIsValid: React.Dispatch<React.SetStateAct
     return (
         <Form {...form}>
             <form
-                className="flex w-full flex-col gap-y-6 py-8 px-12"
+                className="flex w-full flex-col gap-y-6 py-8 md:px-12 px-2"
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <div className="grid grid-cols-2 gap-4">

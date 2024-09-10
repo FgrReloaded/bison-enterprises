@@ -25,3 +25,44 @@ export async function getAdminUsers() {
         console.error(error);
     }
 }
+
+
+export async function getCustomers() {
+    try {
+        const session = await getServerSession(authOptions);
+
+        if(!session || session.user.role !== "ADMIN"){
+            return { error: 'Unauthorized' }
+        }
+
+        const allCustomers = await db.customer.findMany({
+            select: {
+                id: true,
+                email: true,
+                name: true,
+            }
+        });
+
+        return allCustomers;
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function getTotalCustomers() {
+    try {
+        const session = await getServerSession(authOptions);
+
+        if(!session || session.user.role !== "ADMIN"){
+            return { error: 'Unauthorized' }
+        }
+
+        const totalCustomers = await db.customer.count();
+
+        return totalCustomers;
+
+    } catch (error) {
+        console.error(error);
+    }
+}

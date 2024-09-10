@@ -133,13 +133,6 @@ const BillBoardForm = () => {
                     }
                 </div>
                 <DialogFooter className='py-4 flex-col'>
-                    <Button
-                        className='bg-gray-500 hover:bg-gray-600 dark:hover:bg-gray-400'
-                        onClick={() => { dispatch(closeModal()) }}
-                        disabled={isLoading}
-                    >
-                        Cancel
-                    </Button>
                     <div className="flex items-center gap-2 justify-end w-full">
                         <CldUploadWidget options={{ maxFiles: 1 }} onSuccess={handleUpload} uploadPreset='online_store' signatureEndpoint="/api/cloudinary">
                             {({ open }) => {
@@ -156,6 +149,13 @@ const BillBoardForm = () => {
                         >
                             Add Billboard
                         </Button>
+                        <Button
+                        className='bg-gray-500 hover:bg-gray-600 dark:hover:bg-gray-400'
+                        onClick={() => { dispatch(closeModal()) }}
+                        disabled={isLoading}
+                    >
+                        Cancel
+                    </Button>
                     </div>
                 </DialogFooter>
             </form>

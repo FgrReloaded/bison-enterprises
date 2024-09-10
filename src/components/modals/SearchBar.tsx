@@ -6,22 +6,11 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal } from '@/lib/slices/modalSlice'
 import { useDebouncedCallback } from 'use-debounce';
 import { searchProducts } from '@/actions/products'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from '../ui/input'
 import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
@@ -51,9 +40,7 @@ const SearchBar = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={handleOnClose}>
-            <DialogTrigger asChild>
-            </DialogTrigger>
-            <DialogContent >
+            <DialogContent className='px-8 md:px-0'>
                 <DialogHeader>
                     <DialogTitle>Search Product</DialogTitle>
                     <DialogDescription>

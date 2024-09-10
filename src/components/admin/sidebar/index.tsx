@@ -1,13 +1,19 @@
-import React from 'react'
+"use client"
+
 import { Separator } from '@/components/ui/separator';
 import NavigationItem from './NavigationItem';
 import NavigationHome from './NavigationHome';
 import { LayoutDashboard, CalendarDays, StretchHorizontal, CircuitBoardIcon, UsersRound, UserMinus, TicketSlash } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react'
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
+import { cn } from '@/lib/utils';
 
 
 
 const NavigationSidebar = () => {
+    const dispatch = useDispatch();
+    const isOpen = useSelector((state: RootState) => state.adminSidebar.isOpen);
 
     const menuItems = [
         {
@@ -47,9 +53,11 @@ const NavigationSidebar = () => {
         },
     ]
 
+    console.log(isOpen);
+    
 
     return (
-        <aside className="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
+        <aside className={cn("bg-gradient-to-br from-gray-800 to-gray-900 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0", isOpen ? "translate-x-0": "-translate-x-80" )}>
             <NavigationHome />
             <div className="m-4">
                 <ul className="mb-4 flex flex-col gap-1">
@@ -62,7 +70,7 @@ const NavigationSidebar = () => {
                 <ul className="mb-4 flex flex-col gap-1">
                     <li>
                         <button onClick={() => { signOut({ callbackUrl: "/" }) }} className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize" type="button">
-                          <UserMinus size={22} />
+                            <UserMinus size={22} />
                             <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">Logout</p>
                         </button>
                     </li>

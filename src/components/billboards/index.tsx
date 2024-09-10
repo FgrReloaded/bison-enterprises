@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import BillBoard from './BillBoard'
-import { gridLayout } from '@/lib/constant'
+import { gridLayout, gridNames } from '@/lib/constant'
 import { useQuery } from '@tanstack/react-query'
 import { getBillboards } from '@/actions/admin/billboards'
 
@@ -96,14 +96,17 @@ const BillBoards = ({ allowedChildren, styleType }: Props) => {
         }
     })();
 
+    
 
     const children = Array.from({ length: allowedChildren }).map((_, index) => {
-        return <BillBoard key={index} content={content[index]} style={layoutStyle[styleType].children[index]} />
+        return <BillBoard key={index} content={content[index]} gridNames={gridNames[index]} style={layoutStyle[styleType].children[index]} />
     })
 
 
     return (
-        <div className='grid gap-6 w-full h-[80vh] p-6 bg-[#F7F7F8]' style={gridLayout["fourItemStyle"]["styleOne"].container}>
+        <div className='grid gap-6 w-full md:h-[80vh] h-screen p-6 bg-[#F7F7F8] grid-cols-1 md:grid-cols-[2fr_1fr_1.5fr] md:grid-rows-2 grid-rows-6' 
+        // style={gridLayout["fourItemStyle"]["styleOne"].container}
+        >
             {children}
         </div>
     )
