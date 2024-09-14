@@ -99,7 +99,13 @@ export async function getCart() {
 }
 
 // Clear cart
-export async function clearCart(customerId: string) {
+export async function clearCart() {
+    const session = await getServerSession(authOptions);
+        
+    if (!session) throw new Error('You need to be signed in to add items to your cart')
+
+    let customerId = session.user.id;
+
     const cart = await db.cart.findUnique({ where: { customerId } })
     if (!cart) throw new Error('Cart not found')
 

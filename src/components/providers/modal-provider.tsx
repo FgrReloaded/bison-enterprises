@@ -8,6 +8,7 @@ import NewBillBoard from "../modals/NewBillBoard";
 import NewAdmin from "../modals/NewAdmin";
 import NewBanner from "../modals/NewBanner";
 import SearchBar from "../modals/SearchBar";
+import OrderDetailsModal from "../modals/OrderDetailsModal";
 
 
 const ModalProvider = () => {
@@ -28,6 +29,7 @@ const ModalProvider = () => {
             <NewAdmin />
             <NewBanner />
             <SearchBar />
+            <OrderDetailsModal />
         </div>
     )
 }

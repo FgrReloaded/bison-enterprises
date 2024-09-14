@@ -1,11 +1,12 @@
 "use client"
-import { addToCart } from '@/actions/cart';
+import { addToCart, clearCart } from '@/actions/cart';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Cart } from '@prisma/client';
 import { JsonValue } from '@prisma/client/runtime/library';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CreditCard } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner';
 
@@ -21,13 +22,14 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
     const queryClient = useQueryClient();
     const [selectedVariants, setSelectedVariants] = useState<{ [key: string]: string }>({});
     const [quantity, setQuantity] = useState(1)
+    const router = useRouter();
 
     const selectVariant = (key: string, variant: any) => {
         setSelectedVariants({ ...selectedVariants, [key]: variant });
     }
 
     const isValidCombination = (): boolean => {
-        if(productVariant?.length === 0) return true;
+        if (productVariant?.length === 0) return true;
         const matchingVariant = productVariant?.find((variants: any) =>
             Object.keys(variants?.variant).every((variantType: string) =>
                 variants.variant[variantType].includes(selectedVariants[variantType as keyof typeof selectedVariants])
@@ -97,7 +99,7 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
         const variant = productVariant?.find((variants: any) =>
             Object.keys(variants?.variant).every((variantType: string) =>
                 variants.variant[variantType].includes(selectedVariants[variantType as keyof typeof selectedVariants])
-            )   
+            )
         );
         return (variant as any)?.details?.price;
     };
@@ -106,6 +108,13 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
         const matchingVariant: any = findMatchingVariant();
         return matchingVariant ?? price;
     };
+
+    const handleBuyNow = () => {
+        if (!isValid || !id) return;
+        clearCart(); 
+        mutate({ productId: id, quantity, variant: selectedVariants });
+        router.push('/checkout');
+    }
 
     return (
         <>
@@ -155,7 +164,7 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
                     Add to cart
                 </button>
             </div>
-            <Button variant={"outline"} type="button" className="border-2 border-gray-800 px-12 py-6 mt-12 w-full">
+            <Button onClick={handleBuyNow} variant={"outline"} type="button" className="border-2 border-gray-800 px-12 py-6 mt-12 w-full">
                 <CreditCard size={24} className="mr-2" />
                 Buy Now
             </Button>

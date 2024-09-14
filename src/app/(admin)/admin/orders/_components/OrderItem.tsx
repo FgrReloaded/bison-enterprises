@@ -2,16 +2,19 @@
 import { deleteOrder, updateOrderStatus } from '@/actions/admin/orders'
 import ActionTooltip from '@/components/modals/ActionTooltip'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { openModal } from '@/lib/slices/modalSlice'
 import { Order, OrderStatus } from '@prisma/client'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Pencil, Trash } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { toast } from 'sonner'
 
 const ORDER_STATUS: OrderStatus[] = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']
 
 const OrderItem = ({ order }: { order: Order }) => {
+    const dispatch = useDispatch();
     const queryClient = useQueryClient();
     const { mutate: handleDelete } = useMutation({
         mutationFn: deleteOrder,
@@ -54,13 +57,13 @@ const OrderItem = ({ order }: { order: Order }) => {
     }
 
     const handleChange = (status: OrderStatus) => {
-        updateStatus({id: order.id, status})
+        updateStatus({ id: order.id, status })
     }
 
 
     return (
         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="relative w-20 h-20">
+            <td className="relative w-20 h-20 cursor-pointer" onClick={() => { dispatch(openModal({ type: "orderDetails", order })) }}>
                 {order?.id}
             </td>
             <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">

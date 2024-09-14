@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 export type VariantTypeWithVariant = {
     id: string;
     name: string;
@@ -38,3 +40,13 @@ export interface Product {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface OrderData {
+    id: string;
+    items: Prisma.JsonValue;
+    status: string;
+    total: number;
+    customerId: string;
+    paymentInfo: Prisma.JsonValue;
+    createdAt: Date;
+  }

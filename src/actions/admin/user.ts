@@ -66,3 +66,24 @@ export async function getTotalCustomers() {
         console.error(error);
     }
 }
+
+export async function getCustomerDetails(id: string) {
+    try {
+        const session = await getServerSession(authOptions);
+
+        if(!session || session.user.role !== "ADMIN"){
+            return { error: 'Unauthorized' }
+        }
+
+        const customer = await db.customer.findUnique({
+            where: {
+                id
+            }
+        });
+
+        return customer;
+
+    } catch (error) {
+        console.error(error);
+    }
+}

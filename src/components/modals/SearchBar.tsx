@@ -40,7 +40,7 @@ const SearchBar = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={handleOnClose}>
-            <DialogContent className='px-8 md:px-0'>
+            <DialogContent className='px-8 '>
                 <DialogHeader>
                     <DialogTitle>Search Product</DialogTitle>
                     <DialogDescription>

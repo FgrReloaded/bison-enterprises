@@ -14,11 +14,11 @@ const ProductTab = ({description}:ProductTabProps) => {
                         <TabsTrigger value="description" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none" >
                             <span className="text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800"> Description </span>
                         </TabsTrigger>
-                        <TabsTrigger value="reviews" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none">
+                        {/* <TabsTrigger value="reviews" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none">
                             <span className="inline-flex items-center text-sm font-medium text-gray-600">
                                 Reviews
                             </span>
-                        </TabsTrigger>
+                        </TabsTrigger> */}
                     </TabsList>
                 </nav>
             </div>
