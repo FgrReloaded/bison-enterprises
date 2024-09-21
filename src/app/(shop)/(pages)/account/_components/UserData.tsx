@@ -38,7 +38,7 @@ export default function UserData() {
                     <h5 className="text-black text-base font-normal leading-6 ml-5">789 Oak Lane, Lakeside, TX 54321</h5>
                 </span>
                 <Button onClick={()=>{signOut({redirect: true})}} className="flex gap-4 mx-auto">
-                    <span>LogOut</span> <UserMinus size={20} />
+                    <span>Logout</span> <UserMinus size={20} />
                 </Button>
             </div>
         </div>

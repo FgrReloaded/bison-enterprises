@@ -1,8 +1,7 @@
 "use server"
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 
 
 export const getBillboards = async () => {
@@ -23,7 +22,7 @@ export const getBillboards = async () => {
 export const createBillboard = async ({ title, tagline, link, image }: { title: string, tagline: string, link: string, image: string }) => {
     try {
 
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;

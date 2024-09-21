@@ -1,13 +1,12 @@
 "use server"
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/lib/db"
 import { OrderStatus } from "@prisma/client";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 
 export async function fetchAllOrders() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;
@@ -27,7 +26,7 @@ export async function fetchAllOrders() {
 
 export async function deleteOrder(id: string) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;
@@ -47,7 +46,7 @@ export async function deleteOrder(id: string) {
 
 export async function updateOrderStatus({id, status}:{id: string, status: OrderStatus}) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;
@@ -70,7 +69,7 @@ export async function updateOrderStatus({id, status}:{id: string, status: OrderS
 
 export async function getTotalOrderAmount() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;
@@ -91,7 +90,7 @@ export async function getTotalOrderAmount() {
 
 export async function getTotalOrders() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;
@@ -109,7 +108,7 @@ export async function getTotalOrders() {
 
 export async function getLatestOrders() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;

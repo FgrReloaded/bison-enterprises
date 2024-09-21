@@ -1,10 +1,9 @@
 
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import {auth} from "@/auth"
 import { db } from "@/lib/db"
 
 export async function getAdmin() {
-    const session = await getServerSession(authOptions)
+    const session = await auth();
     if (!session) {
         return null
     }

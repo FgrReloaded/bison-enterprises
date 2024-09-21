@@ -1,14 +1,13 @@
 "use server"
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 
 export const addToWishlist = async (id: string) => {
     try {
         if (!id) throw new Error('No product selected');
 
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session) {
             return;
@@ -61,7 +60,7 @@ export const addToWishlist = async (id: string) => {
 
 export const getWishlist = async () => {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session) {
             return;

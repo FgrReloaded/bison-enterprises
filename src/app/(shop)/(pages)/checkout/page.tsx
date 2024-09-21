@@ -115,7 +115,7 @@ export default function CheckOut() {
                 const r = await res.json()
                 // setLoading(false)
                 if (r.success) {
-                    emptyCart(userData?.id);
+                    emptyCart();
                     // setShowConfetti(true);
                     router.push("/orders")
                 }

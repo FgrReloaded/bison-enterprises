@@ -1,12 +1,11 @@
 "use server"
 
 import { db } from '@/lib/db';
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { auth } from "@/auth"
 
 export async function addToCart({ productId, quantity, variant }: { productId: string, quantity: number, variant: any | null }): Promise<any> {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session) throw new Error('You need to be signed in to add items to your cart')
         let customerId = session.user.id;
@@ -46,7 +45,7 @@ export async function addToCart({ productId, quantity, variant }: { productId: s
 // Remove item from cart
 export async function removeFromCart({ cartItemId }: { cartItemId: string }) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session) throw new Error('You need to be signed in to add items to your cart')
         let customerId = session.user.id;
@@ -76,7 +75,7 @@ export async function updateCartItemQuantity(customerId: string, cartItemId: str
 // Get cart contents
 export async function getCart() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session) throw new Error('You need to be signed in to add items to your cart')
         let customerId = session.user.id;
@@ -100,7 +99,7 @@ export async function getCart() {
 
 // Clear cart
 export async function clearCart() {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
         
     if (!session) throw new Error('You need to be signed in to add items to your cart')
 

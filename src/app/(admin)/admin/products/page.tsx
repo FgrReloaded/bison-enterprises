@@ -4,7 +4,6 @@ import { AddProduct } from "./_components/AddProduct";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getProducts } from "@/actions/admin/product";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import VariantsTable from "./_components/VariantsTable";
 
 
 export default async function AdminProductPage() {

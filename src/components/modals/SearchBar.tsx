@@ -14,11 +14,13 @@ import { searchProducts } from '@/actions/products'
 import { Input } from '../ui/input'
 import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
+import { Loader2 } from 'lucide-react'
 
 const SearchBar = () => {
     const dispatch = useDispatch();
     const { isOpen, type } = useSelector((state: any) => state.modal);
     const [searchResult, setSearchResult] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     const handleOnClose = () => {
         dispatch(closeModal());
@@ -32,8 +34,10 @@ const SearchBar = () => {
                 setSearchResult([]);
                 return;
             }
+            setLoading(true);
             const products = await searchProducts(value);
             setSearchResult(products);
+            setLoading(false);
         },
         800
     );
@@ -48,6 +52,9 @@ const SearchBar = () => {
                     </DialogDescription>
                 </DialogHeader>
                 <Input onChange={(e) => { debounced(e.target.value) }} className='w-full' placeholder='Type a product name' />
+                {loading && <p className='text-sm text-gray-500 animate-spin mx-auto'>
+                        <Loader2 />
+                    </p>}
                 <div className='mt-4'>
                     <div className='flex flex-col gap-2'>
                         {searchResult.map((product: any) => (

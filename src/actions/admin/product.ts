@@ -1,10 +1,10 @@
 "use server"
 
 import { db } from "@/lib/db";
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { Product } from "@prisma/client";
 import { ProductVariant } from "@/lib/types";
+import { auth } from "@/auth"
+
 
 export const getProducts = async () => {
     try {
@@ -21,7 +21,7 @@ export const createProduct = async ({ product, variant }: { product: Product, va
         if (!product) throw new Error('No data to create product');
         const { name, description, price, stock, images, isFeatured } = product;
 
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return;
@@ -68,7 +68,7 @@ export const createProduct = async ({ product, variant }: { product: Product, va
 export const deleteProduct = async (id: string): Promise<boolean> => {
     try {
         if (!id) throw new Error('No product id provided');
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             return false;
@@ -91,7 +91,7 @@ export const updateProduct = async (product: Product): Promise<Product> => {
         if (!product) throw new Error('No data to update product');
         const { id, name, description, price, stock, images } = product;
 
-        const session = await getServerSession(authOptions);
+        const session = await auth();
         if (!session || session.user.role !== 'ADMIN') {
             throw new Error('No data to update product');
         }
@@ -123,7 +123,7 @@ export const updateProduct = async (product: Product): Promise<Product> => {
 export const updateStock = async ({ id, stock }: { id: string, stock: number }): Promise<Product> => {
     try {
         if (!id || !stock) throw new Error('No data to update stock');
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             throw new Error('No data to update stock');
@@ -148,7 +148,7 @@ export const updateStock = async ({ id, stock }: { id: string, stock: number }):
 export const productVisibility = async ({ id, isHide }: { id: string, isHide: boolean }): Promise<Product> => {
     try {
         if (!id || isHide === undefined) throw new Error('No product id provided');
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             throw new Error('No product id provided');
@@ -173,7 +173,7 @@ export const productVisibility = async ({ id, isHide }: { id: string, isHide: bo
 export const featuredProduct = async ({ id }: { id: string }): Promise<Product> => {
     try {
         if (!id) throw new Error('No product id provided');
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if (!session || session.user.role !== 'ADMIN') {
             throw new Error('No product id provided');

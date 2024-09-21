@@ -1,11 +1,10 @@
 "use server"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 
 export async function getAdminUsers() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if(!session || session.user.role !== "ADMIN"){
             return { error: 'Unauthorized' }
@@ -29,7 +28,7 @@ export async function getAdminUsers() {
 
 export async function getCustomers() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if(!session || session.user.role !== "ADMIN"){
             return { error: 'Unauthorized' }
@@ -52,7 +51,7 @@ export async function getCustomers() {
 
 export async function getTotalCustomers() {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if(!session || session.user.role !== "ADMIN"){
             return { error: 'Unauthorized' }
@@ -69,7 +68,7 @@ export async function getTotalCustomers() {
 
 export async function getCustomerDetails(id: string) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await auth();
 
         if(!session || session.user.role !== "ADMIN"){
             return { error: 'Unauthorized' }

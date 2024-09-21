@@ -4,15 +4,15 @@ import { OrderData } from '../types';
 export type ModalType = "productForm" | "quickView" | "deleteProduct" | "updateProduct" | "variantModal" | "newBillboard" | "newBanner" | "newAdmin" | "searchProducts" | "orderDetails";
 
 interface ModalData {
-  title: string;
-  description: string;
-  images: string[];
-  price: number;
-  inStock: number;
-  category?: string;
-  isFeatured?: boolean;
-  variants?: { variant: { [key: string]: string[] }, details: { price: number, stock: number } }[];
-}
+  title: string | null;
+  description: string | null;
+  images: string[] | null;
+  price: number | null;
+  inStock: number | null;
+  category?: string | null;
+  isFeatured?: boolean | null;
+  // variants?: { variant: { [key: string]: string[] }, details: { price: number, stock: number } }[] | null; // WIP
+} 
 
 
 

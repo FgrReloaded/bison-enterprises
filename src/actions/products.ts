@@ -59,7 +59,8 @@ export const searchProducts = async (query: string) => {
         const products = await db.product.findMany({
             where: {
                 name: {
-                    contains: query
+                    contains: query,
+                    mode: 'insensitive'
                 }
             }
         });

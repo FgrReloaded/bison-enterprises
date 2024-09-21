@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const session = await getToken({
     req,
     secureCookie: process.env.NEXTAUTH_URL?.startsWith('https://'),
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET || '',
   })
 
   if (req.nextUrl.pathname.startsWith('/admin')) {

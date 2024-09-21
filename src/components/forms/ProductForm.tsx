@@ -84,7 +84,6 @@ const ProductForm = () => {
                 inStock: form.getValues('inStock'),
                 images: form.getValues('images'),
                 isFeatured: form.getValues('isFeatured'),
-                variants: form.getValues('variants')
             }
         }));
     }

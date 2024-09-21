@@ -12,8 +12,8 @@ const LatestOrders = () => {
   return (
     <>
       {
-        latestOrders && latestOrders.map((order) => (
-          <tr>
+        latestOrders && latestOrders.map((order, idx) => (
+          <tr key={idx}>
             <td className="py-3 px-5 border-b border-blue-gray-50">
               <div className="flex items-center gap-4">
                 <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{order?.id}</p>
