@@ -10,12 +10,12 @@ interface User {
     name?: string;
 }
 
-export async function createUser(User: User) {
+export async function createUser(User: User): Promise<{ error: boolean; msg: string }> {
     try {
         const { email, password, name } = User;
 
         if (!email || !password || !name) {
-            throw new Error("Invalid credentials");
+            return { error: true, msg: "Invalid credentials" };
         }
 
         const existingUser = await db.customer.findUnique({
@@ -23,9 +23,10 @@ export async function createUser(User: User) {
         });
 
         if (existingUser) {
-            throw new Error("User already exists");
+            return { error: true, msg: "User already exists" };
         }
-
+        console.log('Reached');
+        
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await db.customer.create({
@@ -36,8 +37,10 @@ export async function createUser(User: User) {
             },
         });
 
+        return { error: false, msg: "User created successfully" };
 
     } catch (error) {
         console.error(error);
+        return { error: true, msg: "An error occurred" };
     }
 }

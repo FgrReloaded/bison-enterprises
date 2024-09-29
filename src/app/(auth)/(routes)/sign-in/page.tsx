@@ -37,13 +37,19 @@ export default function SignIn() {
 
     const onSubmit = async (values: z.infer<typeof CustomerSchema>) => {
         setIsLoading(true);
-        await signIn("customer", {
+        const res = await signIn("customer", {
             email: values.email,
             password: values.password,
-            callbackUrl: "/",
+            redirect: false,
         });
+        if (!res?.error) {
+            window.location.href = "/";
+        }
+        if (res?.error) {
+            form.setError("password", { message: "Invalid email or password" });
+        }
         setIsLoading(false);
-    }   
+    }
 
     return (
         <Form {...form}>
@@ -81,7 +87,7 @@ export default function SignIn() {
                                 <div className="relative">
                                     <Input type={isVisible ? "text" : "password"} placeholder="Enter your password" {...field} />
                                     <span onClick={() => { setIsVisible(!isVisible) }} className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer">
-                                        {isVisible ? <Eye size={20} />: <EyeOff size={20} /> }
+                                        {isVisible ? <Eye size={20} /> : <EyeOff size={20} />}
                                     </span>
                                 </div>
                             </FormControl>

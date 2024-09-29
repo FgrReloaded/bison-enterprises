@@ -18,6 +18,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { createUser } from "../_actions/user-auth"
 import { signIn } from "next-auth/react"
+import { toast } from "sonner"
 
 const CustomerSchema = z.object({
     name: z.string().min(2, 'Name is mandatory'),
@@ -45,12 +46,15 @@ export default function SignUp() {
     const onSubmit = async (values: z.infer<typeof CustomerSchema>) => {
         try {
             setIsLoading(true);
-            await createUser(values);
-            await signIn("customer", {
-                email: values.email,
-                password: values.password,
-                callbackUrl: "/",
-            });
+            const {error, msg} = await createUser(values);
+            if (!error) {
+                await signIn("customer", {
+                    email: values.email,
+                    password: values.password,
+                    callbackUrl: "/",
+                });
+            }
+            toast.error(msg);
         } catch (error) {
             console.log(error);
         } finally {
