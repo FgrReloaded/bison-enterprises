@@ -9,6 +9,7 @@ import NewAdmin from "../modals/NewAdmin";
 import NewBanner from "../modals/NewBanner";
 import SearchBar from "../modals/SearchBar";
 import OrderDetailsModal from "../modals/OrderDetailsModal";
+import CreateCategoryModal from "../modals/CategoryForm";
 
 
 const ModalProvider = () => {
@@ -30,6 +31,7 @@ const ModalProvider = () => {
             <NewBanner />
             <SearchBar />
             <OrderDetailsModal />
+            <CreateCategoryModal />
         </div>
     )
 }

@@ -91,7 +91,7 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
     });
 
     const createCart = async () => {
-        if (!isValid || !id) return;
+        if (!isValid || !id || quantity === 0) return;
         mutate({ productId: id, quantity, variant: selectedVariants });
     }
 
@@ -111,7 +111,7 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
 
     const handleBuyNow = () => {
         if (!isValid || !id) return;
-        clearCart(); 
+        clearCart();
         mutate({ productId: id, quantity, variant: selectedVariants });
         router.push('/checkout');
     }
@@ -157,7 +157,7 @@ const ProductMeta = ({ productVariant, price, id }: VariantsProps) => {
                     <h1 className="text-3xl font-bold">₹ {getSelectedVariantPrice()}</h1>
                 </div>
 
-                <button disabled={!isValid} onClick={createCart} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
+                <button disabled={!isValid || quantity === 0} onClick={createCart} type="button" className="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" className="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>

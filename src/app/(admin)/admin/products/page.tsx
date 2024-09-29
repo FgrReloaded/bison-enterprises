@@ -4,6 +4,8 @@ import { AddProduct } from "./_components/AddProduct";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getProducts } from "@/actions/admin/product";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AddCategory } from "./_components/AddCategory";
+import CategoriesTable from "./_components/CategoriesTable";
 
 
 export default async function AdminProductPage() {
@@ -24,6 +26,9 @@ export default async function AdminProductPage() {
                             <TabsTrigger value="Products" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none" >
                                 <span className="text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800"> Products </span>
                             </TabsTrigger>
+                            <TabsTrigger value="Categories" className="data-[state=active]:border-b-1 data-[state=active]:border-black data-[state=active]:shadow-none rounded-none" >
+                                <span className="text-sm font-medium text-gray-900 hover:border-gray-400 hover:text-gray-800"> Categories </span>
+                            </TabsTrigger>
                         </TabsList>
                     </nav>
                 </div>
@@ -37,6 +42,21 @@ export default async function AdminProductPage() {
                             <h1 className="text-4xl font-bold uppercase my-6">All Products</h1>
                             <div>
                                 <ProductsTable />
+                            </div>
+                        </div>
+
+                    </div>
+                </TabsContent>
+                <TabsContent value="Categories">
+                    <div className="flex flex-col">
+                        <div className="ml-auto">
+                            <AddCategory />
+                        </div>
+                        <Separator className="my-4" />
+                        <div className="flex flex-col px-2">
+                            <h1 className="text-4xl font-bold uppercase my-6">All Categories</h1>
+                            <div>
+                                <CategoriesTable />
                             </div>
                         </div>
 

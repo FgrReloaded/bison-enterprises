@@ -1,4 +1,5 @@
 import { ShoppingCart } from 'lucide-react'
+import Image from 'next/image'
 import React from 'react'
 
 const Incentive = () => {
@@ -10,9 +11,9 @@ const Incentive = () => {
                         <div className="flex items-center justify-center gap-[5px]">
                             <span
                                 className="font-manrope font-bold text-xl leading-normal tracking-[-0.209px] text-gray-900 flex gap-2 items-center">
-                                <p className="text-xl font-bold ">ONLINE</p>
-                                <ShoppingCart size={20} />
-                                <p className="text-xl font-bold">STORE</p>
+                                <p className="text-xl font-bold ">BISON</p>
+                                <Image src="/logo.png" width={50} height={50} alt='logo' />
+                                <p className="text-xl font-bold">ENTERPRISES</p>
                             </span>
                         </div>
                         <p className="mt-3 text-center font-normal text-xl leading-8 text-black">Lowest Prices Best Quality

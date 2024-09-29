@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openSidebar } from '@/lib/slices/sidebarSlice';
 import { RootState } from '@/lib/store'
 import { openModal } from '@/lib/slices/modalSlice'
+import Image from 'next/image'
 
 const Navbar = () => {
     const { data: session, status } = useSession();
@@ -26,10 +27,10 @@ const Navbar = () => {
 
     return (
         <header className="py-4 px-4 flex items-center justify-between md:flex-row flex-col md:gap-0 gap-4">
-            <aside className="flex items-center gap-[2px]">
-                <p className="text-xl font-bold ">ONLINE</p>
-                <ShoppingCart size={20} />
-                <p className="text-xl font-bold">STORE</p>
+            <aside className="flex items-center gap-[2px] ml-8">
+                <p className="text-xl font-bold ">BISON</p>
+                <Image src="/logo.png" width={65} height={65} alt='logo' />
+                <p className="text-xl font-bold">ENTERPRISES</p>
             </aside>
             <nav className="relative">
                 <Input onClick={()=>{dispatch(openModal({type: "searchProducts"}))}} className='focus-visible:ring-0 focus-visible:ring-offset-0 border-2 rounded-xl md:w-[30vw] p-6 text-lg' placeholder="Search Products" />
