@@ -1,0 +1,180 @@
+[debug] [2024-09-29T08:40:45.942Z] ----------------------------------------------------------------------
+[debug] [2024-09-29T08:40:45.944Z] Command:       /home/fgrreloaded/.nvm/versions/node/v20.17.0/bin/node /home/fgrreloaded/.nvm/versions/node/v20.17.0/bin/firebase init
+[debug] [2024-09-29T08:40:45.944Z] CLI Version:   13.20.1
+[debug] [2024-09-29T08:40:45.944Z] Platform:      linux
+[debug] [2024-09-29T08:40:45.944Z] Node Version:  v20.17.0
+[debug] [2024-09-29T08:40:45.944Z] Time:          Sun Sep 29 2024 14:10:45 GMT+0530 (India Standard Time)
+[debug] [2024-09-29T08:40:45.945Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-29T08:40:46.004Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-29T08:40:46.004Z] > authorizing via signed-in user (fgrreloadedprogrammer@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/fgrreloaded/FgrReloaded/Programming/Internship/E-Commerce Store/online-store
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-09-29T08:52:52.682Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:52:52.683Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:52:52.684Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-09-29T08:52:52.685Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"bison-store","name":"Bison Store"}
+[debug] [2024-09-29T08:52:54.724Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2024-09-29T08:52:54.724Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2024-09-29T08:52:54.931Z] FirebaseError: HTTP Error: 409, Requested entity already exists
+    at responseToError (/home/fgrreloaded/.nvm/versions/node/v20.17.0/lib/node_modules/firebase-tools/lib/responseToError.js:49:12)
+    at RetryOperation._fn (/home/fgrreloaded/.nvm/versions/node/v20.17.0/lib/node_modules/firebase-tools/lib/apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID bison-store. Please try again with a unique project ID.
+[debug] [2024-09-29T08:53:03.201Z] ----------------------------------------------------------------------
+[debug] [2024-09-29T08:53:03.202Z] Command:       /home/fgrreloaded/.nvm/versions/node/v20.17.0/bin/node /home/fgrreloaded/.nvm/versions/node/v20.17.0/bin/firebase init
+[debug] [2024-09-29T08:53:03.203Z] CLI Version:   13.20.1
+[debug] [2024-09-29T08:53:03.203Z] Platform:      linux
+[debug] [2024-09-29T08:53:03.203Z] Node Version:  v20.17.0
+[debug] [2024-09-29T08:53:03.203Z] Time:          Sun Sep 29 2024 14:23:03 GMT+0530 (India Standard Time)
+[debug] [2024-09-29T08:53:03.203Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-29T08:53:03.262Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-29T08:53:03.263Z] > authorizing via signed-in user (fgrreloadedprogrammer@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/fgrreloaded/FgrReloaded/Programming/Internship/E-Commerce Store/online-store
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-09-29T08:53:25.870Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:25.871Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:25.872Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-09-29T08:53:25.873Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"bison-ecom-store","name":"Bison Store"}
+[debug] [2024-09-29T08:53:28.566Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2024-09-29T08:53:28.566Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/cp.7006949826733605382"}
+[debug] [2024-09-29T08:53:28.567Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:28.567Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:28.567Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 [none]
+[debug] [2024-09-29T08:53:30.173Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 200
+[debug] [2024-09-29T08:53:30.173Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 {"name":"operations/cp.7006949826733605382"}
+[debug] [2024-09-29T08:53:30.674Z] [Project Creation Poller] Retrying task index 0
+[debug] [2024-09-29T08:53:30.675Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:30.675Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:30.675Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 [none]
+[debug] [2024-09-29T08:53:31.241Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 200
+[debug] [2024-09-29T08:53:31.241Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 {"name":"operations/cp.7006949826733605382","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true}}
+[debug] [2024-09-29T08:53:32.243Z] [Project Creation Poller] Retrying task index 0
+[debug] [2024-09-29T08:53:32.243Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:32.243Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:32.244Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 [none]
+[debug] [2024-09-29T08:53:32.818Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 200
+[debug] [2024-09-29T08:53:32.819Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7006949826733605382 {"name":"operations/cp.7006949826733605382","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"952020038491","projectId":"bison-ecom-store","lifecycleState":"ACTIVE","name":"Bison Store","createTime":"2024-09-29T08:53:33.505497Z"}}
+[debug] [2024-09-29T08:53:32.820Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:32.820Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:32.821Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/bison-ecom-store:addFirebase [none]
+[debug] [2024-09-29T08:53:36.632Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/bison-ecom-store:addFirebase 200
+[debug] [2024-09-29T08:53:36.632Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/bison-ecom-store:addFirebase {"name":"operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4"}
+[debug] [2024-09-29T08:53:36.632Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:36.632Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:36.633Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 [none]
+[debug] [2024-09-29T08:53:40.395Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 200
+[debug] [2024-09-29T08:53:40.396Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 {"name":"operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4"}
+[debug] [2024-09-29T08:53:40.896Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2024-09-29T08:53:40.896Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:40.896Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:40.896Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 [none]
+[debug] [2024-09-29T08:53:41.522Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 200
+[debug] [2024-09-29T08:53:41.522Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 {"name":"operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4"}
+[debug] [2024-09-29T08:53:42.522Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2024-09-29T08:53:42.523Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:42.523Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:42.523Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 [none]
+[debug] [2024-09-29T08:53:43.648Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 200
+[debug] [2024-09-29T08:53:43.648Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 {"name":"operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4"}
+[debug] [2024-09-29T08:53:45.648Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2024-09-29T08:53:45.649Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:45.649Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:45.649Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 [none]
+[debug] [2024-09-29T08:53:46.539Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 200
+[debug] [2024-09-29T08:53:46.539Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 {"name":"operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4"}
+[debug] [2024-09-29T08:53:50.540Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2024-09-29T08:53:50.541Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:50.541Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:50.541Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 [none]
+[debug] [2024-09-29T08:53:51.455Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 200
+[debug] [2024-09-29T08:53:51.455Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4 {"name":"operations/workflows/MjI2YzJjNWQtZWI1ZC00MDgwLWJiYjctOTc3NzIxODRiMzE4","done":true,"response":{"@type":"type.googleapis.com/google.firebase.service.v1beta1.FirebaseProject","projectId":"bison-ecom-store","projectNumber":"952020038491","displayName":"Bison Store","name":"projects/bison-ecom-store","resources":{"hostingSite":"bison-ecom-store"}}}
+[info] 
+[info] 🎉🎉🎉 Your Firebase project is ready! 🎉🎉🎉
+[info] 
+[info] Project information:
+[info]    - Project ID: bison-ecom-store
+[info]    - Project Name: Bison Store
+[info] 
+[info] Firebase console is available at
+[info] https://console.firebase.google.com/project/bison-ecom-store/overview
+[info] i  Using project bison-ecom-store (Bison Store) 
+[info] 
+=== Hosting Setup
+[debug] [2024-09-29T08:53:51.466Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:51.466Z] Checked if tokens are valid: true, expires at: 1727602604746
+[debug] [2024-09-29T08:53:51.467Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bison-ecom-store [none]
+[debug] [2024-09-29T08:53:52.650Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bison-ecom-store 200
+[debug] [2024-09-29T08:53:52.651Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bison-ecom-store {"projectId":"bison-ecom-store","projectNumber":"952020038491","displayName":"Bison Store","name":"projects/bison-ecom-store","resources":{"hostingSite":"bison-ecom-store"},"state":"ACTIVE","etag":"1_eedabe1f-9d91-4ec9-9878-f4e9f82127e6"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[info] ✔  Wrote public/404.html 
+[debug] [2024-09-29T08:54:47.787Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2024-09-29T08:54:47.948Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2024-09-29T08:54:47.949Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"10.13.2","browserURL":"https://www.gstatic.com/firebasejs/10.13.2/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/10.13.2/firebase.tgz"},"live":{"version":"10.13","browserURL":"https://www.gstatic.com/firebasejs/live/10.13/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/10.13/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/10.13.2/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/10.13.2/firebase-auth/cordova.js","auth/web-extension":"https://www.gstatic.com/firebasejs/10.13.2/firebase-auth/web-extension.js","functions":"https://www.gstatic.com/firebasejs/10.13.2/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/10.13.2/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/10.13.2/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/10.13.2/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js","vertexai-preview":"https://www.gstatic.com/firebasejs/10.13.2/firebase-vertexai-preview.js","firestore.memory":"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.memory.js"}}
+[info] ✔  Wrote public/index.html 
+[info] 
+[info] i  Detected a .git folder at /home/fgrreloaded/FgrReloaded/Programming/Internship/E-Commerce Store/online-store 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=1017829569&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2024-09-29T08:54:57.524Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2024-09-29T08:54:57.524Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2024-09-29T08:54:57.965Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2024-09-29T08:54:57.965Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2024-09-29T08:54:57.969Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2024-09-29T08:54:58.483Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2024-09-29T08:54:58.483Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"FgrReloaded","id":78011049,"node_id":"MDQ6VXNlcjc4MDExMDQ5","avatar_url":"https://avatars.githubusercontent.com/u/78011049?v=4","gravatar_id":"","url":"https://api.github.com/users/FgrReloaded","html_url":"https://github.com/FgrReloaded","followers_url":"https://api.github.com/users/FgrReloaded/followers","following_url":"https://api.github.com/users/FgrReloaded/following{/other_user}","gists_url":"https://api.github.com/users/FgrReloaded/gists{/gist_id}","starred_url":"https://api.github.com/users/FgrReloaded/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/FgrReloaded/subscriptions","organizations_url":"https://api.github.com/users/FgrReloaded/orgs","repos_url":"https://api.github.com/users/FgrReloaded/repos","events_url":"https://api.github.com/users/FgrReloaded/events{/privacy}","received_events_url":"https://api.github.com/users/FgrReloaded/received_events","type":"User","site_admin":false,"name":"Nitish","company":null,"blog":"https://www.devxnitish.me","location":null,"email":"nk.nitish.nk500@gmail.com","hireable":true,"bio":"Looking for someone who will collaborate with me to create unique web themes and js application using react or angular.","twitter_username":null,"notification_email":"nk.nitish.nk500@gmail.com","public_repos":34,"public_gists":0,"followers":5,"following":3,"created_at":"2021-01-26T06:08:50Z","updated_at":"2024-09-13T18:35:43Z","private_gists":0,"total_private_repos":7,"owned_private_repos":7,"disk_usage":2450690,"collaborators":0,"two_factor_authentication":true,"plan":{"name":"pro","space":976562499,"collaborators":0,"private_repos":9999}}
+[info] 
+[info] ✔  Success! Logged into GitHub as FgrReloaded 
+[info] 
